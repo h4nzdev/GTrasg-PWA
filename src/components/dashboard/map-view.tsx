@@ -68,18 +68,18 @@ export function MapView({
       </Card>
 
       {firstTruck && (
-        <Card className="bg-secondary/50">
+        <Card className="border-yellow-500/30 bg-yellow-400/10">
           <CardContent className="flex items-center gap-4 p-4">
-            <div className="rounded-full bg-accent/20 p-3 text-accent">
+            <div className="rounded-full bg-yellow-500/20 p-3 text-yellow-700">
               <MapPin className="h-6 w-6" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold">Truck is 5km away</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="font-semibold text-yellow-900">Truck is 5km away</p>
+              <p className="text-sm text-yellow-800/80">
                 Estimated arrival: {firstTruck.eta}
               </p>
             </div>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="text-yellow-900 hover:bg-yellow-500/20">
               View Details <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </CardContent>
