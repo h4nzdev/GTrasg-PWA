@@ -1,3 +1,64 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "map",
+      "description": "A placeholder map of a city.",
+      "imageUrl": "https://images.unsplash.com/photo-1717343823307-973d0903d222?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2l0eSUyMG1hcHxlbnwwfHx8fDE3NzExMjQ4Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "user-avatar-1",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzEwNDg3OTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user-avatar-2",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1609505848912-b7c3b8b4beda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MTExMzc4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "user-avatar-3",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1583195763986-0231686dcd43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzExMzc1ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "user-avatar-4",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1542596768-5d1d21f1cf98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc3MTEyNjc5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "user-avatar-5",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3b21hbiUyMHNtaWxpbmd8ZW58MHx8fHwxNzcxMDUyNTc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman smiling"
+    },
+    {
+      "id": "report-1",
+      "description": "Overflowing trash can",
+      "imageUrl": "https://images.unsplash.com/photo-1640658541354-1175a1d7d768?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8dHJhc2glMjBjYW58ZW58MHx8fHwxNzcxMTQ1NTgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "trash can"
+    },
+    {
+      "id": "report-2",
+      "description": "Illegal dumping site",
+      "imageUrl": "https://images.unsplash.com/photo-1762805543693-5aaa00fadc28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnYXJiYWdlJTIwcGlsZXxlbnwwfHx8fDE3NzEwNDUwNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "garbage pile"
+    },
+    {
+      "id": "report-3",
+      "description": "Uncollected garbage bags",
+      "imageUrl": "https://images.unsplash.com/photo-1628638428099-48fc6fdb98c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxnYXJiYWdlJTIwYmFnc3xlbnwwfHx8fDE3NzExNDU1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "garbage bags"
+    },
+    {
+      "id": "scanner-placeholder",
+      "description": "Placeholder for scanner",
+      "imageUrl": "https://images.unsplash.com/photo-1767354470473-d763149b6d4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3YXN0ZSUyMG9iamVjdHxlbnwwfHx8fDE3NzExNDU1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "waste object"
+    }
+  ]
 }
