@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/header';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { BottomNav } from './bottom-nav';
 import { useIsMobile } from '@/hooks/use-mobile';
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 
 interface AppLayoutProps {
   children: (activeView: View, setActiveView: Dispatch<SetStateAction<View>>) => ReactNode;

@@ -2,8 +2,9 @@
 
 import type { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Bell, LogOut, User } from 'lucide-react';
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 
 import {
   DropdownMenu,
@@ -23,6 +24,7 @@ interface HeaderProps {
 
 export function Header({ title, setActiveView }: HeaderProps) {
   const userAvatar = PlaceHolderImages.find((img) => img.id === 'user-avatar-1');
+  const router = useRouter();
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
@@ -61,7 +63,7 @@ export function Header({ title, setActiveView }: HeaderProps) {
               <span>Profile</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/')}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>

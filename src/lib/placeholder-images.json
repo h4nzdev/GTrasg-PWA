@@ -59,6 +59,12 @@
       "description": "Placeholder for scanner",
       "imageUrl": "https://images.unsplash.com/photo-1767354470473-d763149b6d4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3YXN0ZSUyMG9iamVjdHxlbnwwfHx8fDE3NzExNDU1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "waste object"
+    },
+    {
+      "id": "login-truck",
+      "description": "An illustration of a yellow garbage truck on a green background.",
+      "imageUrl": "https://images.unsplash.com/photo-1666627369576-54862a557c4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0cnVjayUyMGlsbHVzdHJhdGlvbnxlbnwwfHx8fDE3NzExNTQyNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "truck illustration"
     }
   ]
 }

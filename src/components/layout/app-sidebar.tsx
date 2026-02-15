@@ -2,6 +2,7 @@
 
 import type { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   Map,
   MessageCircleWarning,
@@ -13,7 +14,7 @@ import {
   Trophy,
 } from 'lucide-react';
 
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Sidebar,
@@ -43,6 +44,7 @@ interface AppSidebarProps {
 
 export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
   const userAvatar = PlaceHolderImages.find((img) => img.id === 'user-avatar-1');
+  const router = useRouter();
 
   return (
     <Sidebar>
@@ -131,7 +133,7 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
               <span>Profile</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/')}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
