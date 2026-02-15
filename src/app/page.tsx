@@ -95,10 +95,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#1C211F] text-white">
-      <header className="p-4 text-center">
-        <h1 className="text-lg font-semibold">Welcome Back Login</h1>
-      </header>
-
       <main className="flex flex-1 flex-col items-center justify-center p-6">
         <div className="w-full max-w-sm">
           {loginImage && (
