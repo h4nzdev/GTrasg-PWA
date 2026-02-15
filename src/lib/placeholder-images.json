@@ -65,6 +65,12 @@
       "description": "An illustration of a yellow garbage truck on a green background.",
       "imageUrl": "https://images.unsplash.com/photo-1666627369576-54862a557c4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0cnVjayUyMGlsbHVzdHJhdGlvbnxlbnwwfHx8fDE3NzExNTQyNzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "truck illustration"
+    },
+    {
+      "id": "park-gate",
+      "description": "A stone gate at the entrance to a public park.",
+      "imageUrl": "https://images.unsplash.com/photo-1572917629834-36a5369145d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwYXJrJTIwZ2F0ZXxlbnwwfHx8fDE3NzEzNDI0NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "park gate"
     }
   ]
 }

@@ -33,9 +33,14 @@ export type Truck = {
   eta: string;
 };
 
-export type OperatorView =
-  | 'dashboard'
-  | 'reports'
-  | 'vehicle'
-  | 'settings'
-  | 'profile';
+export type OperatorView = 'dashboard' | 'feed' | 'stats' | 'settings' | 'profile';
+
+export type Task = {
+  id: string;
+  title: string;
+  description: string;
+  distance: string;
+  time: string;
+  image: ImagePlaceholder;
+  status?: 'CRITICAL';
+};

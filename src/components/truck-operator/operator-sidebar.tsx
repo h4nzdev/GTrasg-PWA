@@ -1,14 +1,44 @@
 'use client';
 import type { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/navigation';
-import { Map, MessageCircleWarning, Truck, Settings, LogOut, User } from 'lucide-react';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarSeparator } from '@/components/ui/sidebar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  Map,
+  ListTodo,
+  Truck,
+  Settings,
+  LogOut,
+  User,
+  BarChart,
+} from 'lucide-react';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarSeparator,
+} from '@/components/ui/sidebar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import type { OperatorView } from '@/lib/types';
 
-export function OperatorSidebar({ activeView, setActiveView }: { activeView: OperatorView; setActiveView: Dispatch<SetStateAction<OperatorView>> }) {
+export function OperatorSidebar({
+  activeView,
+  setActiveView,
+}: {
+  activeView: OperatorView;
+  setActiveView: Dispatch<SetStateAction<OperatorView>>;
+}) {
   const router = useRouter();
 
   return (
@@ -22,25 +52,41 @@ export function OperatorSidebar({ activeView, setActiveView }: { activeView: Ope
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('dashboard')} isActive={activeView === 'dashboard'} tooltip="Live Route">
+            <SidebarMenuButton
+              onClick={() => setActiveView('dashboard')}
+              isActive={activeView === 'dashboard'}
+              tooltip="Live Route"
+            >
               <Map />
               <span>Live Route</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('reports')} isActive={activeView === 'reports'} tooltip="Active Reports">
-              <MessageCircleWarning />
-              <span>Active Reports</span>
+            <SidebarMenuButton
+              onClick={() => setActiveView('feed')}
+              isActive={activeView === 'feed'}
+              tooltip="Task Feed"
+            >
+              <ListTodo />
+              <span>Task Feed</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('vehicle')} isActive={activeView === 'vehicle'} tooltip="Vehicle Status">
-              <Truck />
-              <span>Vehicle Status</span>
+            <SidebarMenuButton
+              onClick={() => setActiveView('stats')}
+              isActive={activeView === 'stats'}
+              tooltip="Vehicle Stats"
+            >
+              <BarChart />
+              <span>Vehicle Stats</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={() => setActiveView('settings')} isActive={activeView === 'settings'} tooltip="Settings">
+            <SidebarMenuButton
+              onClick={() => setActiveView('settings')}
+              isActive={activeView === 'settings'}
+              tooltip="Settings"
+            >
               <Settings />
               <span>Settings</span>
             </SidebarMenuButton>
@@ -57,7 +103,9 @@ export function OperatorSidebar({ activeView, setActiveView }: { activeView: Ope
               </Avatar>
               <div className="flex flex-col items-start duration-200 group-data-[collapsible=icon]:opacity-0">
                 <span className="text-sm font-medium">Truck Operator</span>
-                <span className="text-xs text-muted-foreground">operator@gtrash.com</span>
+                <span className="text-xs text-muted-foreground">
+                  operator@gtrash.com
+                </span>
               </div>
             </Button>
           </DropdownMenuTrigger>
@@ -65,7 +113,7 @@ export function OperatorSidebar({ activeView, setActiveView }: { activeView: Ope
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setActiveView('profile')}>
-               <User className="mr-2 h-4 w-4" />
+              <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

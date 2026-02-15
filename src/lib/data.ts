@@ -1,4 +1,4 @@
-import type { Report, LeaderboardUser, Truck } from './types';
+import type { Report, LeaderboardUser, Truck, Task } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 
 function getImage(id: string) {
@@ -69,6 +69,34 @@ export const reports: Report[] = [
     image: getImage('report-3'), // Using 'garbage bags' as a substitute for clogged drainage
     likes: 88,
     comments: 24,
+  },
+];
+
+export const tasks: Task[] = [
+  {
+    id: 'TSK-001',
+    title: 'Brgy. Luz - Sapa Hotspot',
+    description: 'Reported near the creek bridge. 4 residents are complaining.',
+    distance: '230m off route',
+    time: '3m ago',
+    image: getImage('report-1'),
+    status: 'CRITICAL',
+  },
+  {
+    id: 'TSK-002',
+    title: 'Mabolo Alley 2',
+    description: 'Illegal dumping identified by Smart Sensor A-24.',
+    distance: '450m off route',
+    time: '14m ago',
+    image: getImage('report-2'),
+  },
+  {
+    id: 'TSK-003',
+    title: 'Mango Ave. Public Park',
+    description: 'Sacks of overflow reported by Park Guard.',
+    distance: '800m off route',
+    time: '52m ago',
+    image: getImage('park-gate'),
   },
 ];
 
