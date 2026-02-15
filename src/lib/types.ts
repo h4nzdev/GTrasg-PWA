@@ -17,6 +17,9 @@ export type LeaderboardUser = {
   name: string;
   points: number;
   avatar: ImagePlaceholder;
+  location: string;
+  tag?: 'PRO' | 'Expert';
+  isCurrentUser?: boolean;
 };
 
 export type Truck = {
