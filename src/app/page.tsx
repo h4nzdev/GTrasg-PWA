@@ -8,10 +8,20 @@ import { ProfileView } from '@/components/dashboard/profile-view';
 import { SettingsView } from '@/components/dashboard/settings-view';
 import { ReportFormView } from '@/components/dashboard/report-form-view';
 import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
+import { ReportProgressView } from '@/components/dashboard/report-progress-view';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
+import type { Report } from '@/lib/types';
 
-export type View = 'dashboard' | 'scanner' | 'reports' | 'profile' | 'settings' | 'report-form' | 'leaderboard';
+export type View =
+  | 'dashboard'
+  | 'scanner'
+  | 'reports'
+  | 'profile'
+  | 'settings'
+  | 'report-form'
+  | 'leaderboard'
+  | 'report-progress';
 
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
@@ -21,10 +31,17 @@ const viewTitles: Record<View, string> = {
   settings: 'Settings',
   'report-form': 'Community Report',
   leaderboard: 'Leaderboard',
+  'report-progress': 'Report Progress',
 };
 
 export default function Home() {
   const [activeView, setActiveView] = useState<View>('dashboard');
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
+
+  const handleViewProgress = (report: Report) => {
+    setSelectedReport(report);
+    setActiveView('report-progress');
+  };
 
   return (
     <AppLayout viewTitles={viewTitles} activeView={activeView} setActiveView={setActiveView}>
@@ -32,11 +49,16 @@ export default function Home() {
         <>
           {activeView === 'dashboard' && <MapView setActiveView={setActiveView} />}
           {activeView === 'scanner' && <ScannerView setActiveView={setActiveView} />}
-          {activeView === 'reports' && <ReportsView setActiveView={setActiveView} />}
+          {activeView === 'reports' && (
+            <ReportsView setActiveView={setActiveView} onViewProgress={handleViewProgress} />
+          )}
           {activeView === 'profile' && <ProfileView setActiveView={setActiveView} />}
           {activeView === 'settings' && <SettingsView />}
           {activeView === 'report-form' && <ReportFormView setActiveView={setActiveView} />}
           {activeView === 'leaderboard' && <LeaderboardView />}
+          {activeView === 'report-progress' && (
+            <ReportProgressView report={selectedReport} setActiveView={setActiveView} />
+          )}
         </>
       )}
     </AppLayout>

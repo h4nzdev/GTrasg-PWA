@@ -40,8 +40,10 @@ const ctaIcon: Record<Report['status'], React.ReactNode> = {
 
 export function ReportsView({
   setActiveView,
+  onViewProgress,
 }: {
   setActiveView: Dispatch<SetStateAction<View>>;
+  onViewProgress: (report: Report) => void;
 }) {
   return (
     <div className="relative space-y-4 p-4 sm:p-6">
@@ -58,7 +60,7 @@ export function ReportsView({
             </Button>
           </div>
           <TabsContent value="recent" className="mt-4">
-            <ReportList reports={reports} />
+            <ReportList reports={reports} onViewProgress={onViewProgress} />
           </TabsContent>
           <TabsContent value="nearby" className="mt-4">
             <div className="flex h-48 items-center justify-center rounded-lg border-2 border-dashed">
@@ -81,7 +83,13 @@ export function ReportsView({
   );
 }
 
-function ReportList({ reports }: { reports: Report[] }) {
+function ReportList({
+  reports,
+  onViewProgress,
+}: {
+  reports: Report[];
+  onViewProgress: (report: Report) => void;
+}) {
   return (
     <div className="space-y-6 pb-16 md:pb-0">
       {reports.map((report) => (
@@ -140,6 +148,7 @@ function ReportList({ reports }: { reports: Report[] }) {
                 variant="ghost"
                 size="sm"
                 className="font-semibold text-primary"
+                onClick={() => onViewProgress(report)}
               >
                 {ctaText[report.status]}
                 {ctaIcon[report.status]}
