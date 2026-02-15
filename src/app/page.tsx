@@ -14,7 +14,7 @@ export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard' | 'settin
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
   scanner: 'AI Waste Scanner',
-  reports: 'Community Reports',
+  reports: 'Community Feed',
   leaderboard: 'Eco-Points Leaderboard',
   settings: 'Settings',
 };

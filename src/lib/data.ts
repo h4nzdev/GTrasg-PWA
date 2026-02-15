@@ -36,27 +36,39 @@ export const trucks: Truck[] = [
 export const reports: Report[] = [
   {
     id: 'REP-001',
-    title: 'Overflowing Bin',
-    location: 'Fuente Osmeña Circle',
+    title: 'Cleanup successful at Guadalupe Sapa',
+    description:
+      'Huge thanks to the volunteers! The illegal dumping site near the bridge has been cleared.',
+    location: 'Brgy. Guadalupe',
     status: 'Resolved',
-    reportedAt: '2 days ago',
-    image: getImage('report-1'),
+    reportedAt: '2h ago',
+    image: getImage('report-2'), // Using 'garbage pile' to represent the cleared site
+    likes: 124,
+    comments: 18,
   },
   {
     id: 'REP-002',
-    title: 'Illegal Dumping',
-    location: 'Near Colon St.',
+    title: 'Overflowing Bins near Market',
+    description:
+      'Bins have not been emptied for 3 days. Smell is becoming an issue for the nearby street food...',
+    location: 'Labangon Proper',
     status: 'In Progress',
-    reportedAt: '1 day ago',
-    image: getImage('report-2'),
+    reportedAt: '5h ago',
+    image: getImage('report-1'), // Overflowing trash can
+    likes: 42,
+    comments: 7,
   },
   {
     id: 'REP-003',
-    title: 'Missed Pickup',
-    location: 'Banilad, Cebu City',
-    status: 'Pending',
-    reportedAt: '3 hours ago',
-    image: getImage('report-3'),
+    title: 'Clogged Drainage - JY Area',
+    description:
+      'Heavy rain caused flooding because of plastic waste blocking the drainage inlet. Needs urgent attention.',
+    location: 'Brgy. Lahug',
+    status: 'Reported',
+    reportedAt: '12h ago',
+    image: getImage('report-3'), // Using 'garbage bags' as a substitute for clogged drainage
+    likes: 88,
+    comments: 24,
   },
 ];
 

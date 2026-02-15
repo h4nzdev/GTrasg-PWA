@@ -3,10 +3,13 @@ import type { ImagePlaceholder } from './placeholder-images';
 export type Report = {
   id: string;
   title: string;
+  description: string;
   location: string;
-  status: 'Pending' | 'In Progress' | 'Resolved';
+  status: 'Reported' | 'In Progress' | 'Resolved';
   reportedAt: string;
   image: ImagePlaceholder;
+  likes: number;
+  comments: number;
 };
 
 export type LeaderboardUser = {

@@ -13,7 +13,7 @@ interface BottomNavProps {
 const navItems = [
   { view: 'dashboard', icon: Map, label: 'Map' },
   { view: 'scanner', icon: ScanLine, label: 'Scanner' },
-  { view: 'reports', icon: MessageCircleWarning, label: 'Reports' },
+  { view: 'reports', icon: MessageCircleWarning, label: 'Feed' },
   { view: 'leaderboard', icon: Trophy, label: 'Leaderboard' },
   { view: 'settings', icon: Settings, label: 'Settings' },
 ];

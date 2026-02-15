@@ -77,10 +77,10 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
             <SidebarMenuButton
               onClick={() => setActiveView('reports')}
               isActive={activeView === 'reports'}
-              tooltip="Reports"
+              tooltip="Community Feed"
             >
               <MessageCircleWarning />
-              <span>Reports</span>
+              <span>Community Feed</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
