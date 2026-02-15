@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'GTrash: Smart Waste Tracker',
   description: 'A Real-Time Waste Collection Tracking and Community Monitoring System.',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 export default function RootLayout({
