@@ -5,11 +5,12 @@ import { MapView } from '@/components/dashboard/map-view';
 import { ScannerView } from '@/components/dashboard/scanner-view';
 import { ReportsView } from '@/components/dashboard/reports-view';
 import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
+import type { Dispatch, SetStateAction } from 'react';
 
 export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard';
 
 const viewTitles: Record<View, string> = {
-  dashboard: 'Live Waste Collection',
+  dashboard: 'Truck Tracker',
   scanner: 'AI Waste Scanner',
   reports: 'Community Reports',
   leaderboard: 'Eco-Points Leaderboard',
@@ -18,9 +19,9 @@ const viewTitles: Record<View, string> = {
 export default function Home() {
   return (
     <AppLayout viewTitles={viewTitles}>
-      {(activeView) => (
+      {(activeView, setActiveView) => (
         <>
-          {activeView === 'dashboard' && <MapView />}
+          {activeView === 'dashboard' && <MapView setActiveView={setActiveView} />}
           {activeView === 'scanner' && <ScannerView />}
           {activeView === 'reports' && <ReportsView />}
           {activeView === 'leaderboard' && <LeaderboardView />}

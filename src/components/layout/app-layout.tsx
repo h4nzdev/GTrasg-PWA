@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { Header } from '@/components/layout/header';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -9,7 +9,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import type { View } from '@/app/page';
 
 interface AppLayoutProps {
-  children: (activeView: View) => ReactNode;
+  children: (activeView: View, setActiveView: Dispatch<SetStateAction<View>>) => ReactNode;
   initialView?: View;
   viewTitles: Record<View, string>;
 }
@@ -30,7 +30,7 @@ export function AppLayout({
       <SidebarInset>
         <Header title={viewTitles[activeView]} />
         <main className="p-4 pt-0 sm:p-6 sm:pt-0 pb-20 md:pb-6">
-          {children(activeView)}
+          {children(activeView, setActiveView)}
         </main>
       </SidebarInset>
       {isMobile && (
