@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'A Real-Time Waste Collection Tracking and Community Monitoring System.',
   manifest: '/manifest.json',
   icons: {
-    icon: '/logo.svg',
+    icon: '/gtrash-logo.png',
   },
 };
 
