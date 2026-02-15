@@ -12,8 +12,8 @@ interface BottomNavProps {
 
 const navItems = [
   { view: 'dashboard', icon: Map, label: 'Map' },
-  { view: 'scanner', icon: ScanLine, label: 'Scanner' },
   { view: 'reports', icon: MessageCircleWarning, label: 'Feed' },
+  { view: 'scanner', icon: ScanLine, label: 'Scanner' },
   { view: 'profile', icon: Trophy, label: 'Profile' },
   { view: 'settings', icon: Settings, label: 'Settings' },
 ];
@@ -22,22 +22,42 @@ export function BottomNav({ activeView, setActiveView }: BottomNavProps) {
   return (
     <nav className="fixed bottom-0 left-0 z-50 w-full h-16 bg-background border-t border-border md:hidden">
       <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
-        {navItems.map((item) => (
-          <button
-            key={item.view}
-            type="button"
-            className={cn(
-              'inline-flex flex-col items-center justify-center px-5 hover:bg-muted/50 group',
-              activeView === item.view
-                ? 'text-primary'
-                : 'text-muted-foreground'
-            )}
-            onClick={() => setActiveView(item.view as View)}
-          >
-            <item.icon className="w-5 h-5 mb-1" />
-            <span className="text-xs">{item.label}</span>
-          </button>
-        ))}
+        {navItems.map((item) => {
+          if (item.view === 'scanner') {
+            return (
+              <div key={item.view} className="flex items-center justify-center">
+                <button
+                  type="button"
+                  aria-label={item.label}
+                  className={cn(
+                    'inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary text-primary-foreground shadow-lg -translate-y-4 ring-4 ring-background transition-transform hover:scale-110',
+                    activeView === item.view && 'ring-primary'
+                  )}
+                  onClick={() => setActiveView(item.view as View)}
+                >
+                  <item.icon className="w-8 h-8" />
+                </button>
+              </div>
+            );
+          }
+
+          return (
+            <button
+              key={item.view}
+              type="button"
+              className={cn(
+                'inline-flex flex-col items-center justify-center px-5 hover:bg-muted/50 group',
+                activeView === item.view
+                  ? 'text-primary'
+                  : 'text-muted-foreground'
+              )}
+              onClick={() => setActiveView(item.view as View)}
+            >
+              <item.icon className="w-5 h-5 mb-1" />
+              <span className="text-xs">{item.label}</span>
+            </button>
+          );
+        })}
       </div>
     </nav>
   );
