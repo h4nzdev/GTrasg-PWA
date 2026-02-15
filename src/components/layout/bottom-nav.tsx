@@ -1,7 +1,7 @@
 'use client';
 
 import type { Dispatch, SetStateAction } from 'react';
-import { Map, ScanLine, MessageCircleWarning, Trophy } from 'lucide-react';
+import { Map, ScanLine, MessageCircleWarning, Trophy, Settings } from 'lucide-react';
 import type { View } from '@/app/page';
 import { cn } from '@/lib/utils';
 
@@ -15,12 +15,13 @@ const navItems = [
   { view: 'scanner', icon: ScanLine, label: 'Scanner' },
   { view: 'reports', icon: MessageCircleWarning, label: 'Reports' },
   { view: 'leaderboard', icon: Trophy, label: 'Leaderboard' },
+  { view: 'settings', icon: Settings, label: 'Settings' },
 ];
 
 export function BottomNav({ activeView, setActiveView }: BottomNavProps) {
   return (
     <nav className="fixed bottom-0 left-0 z-50 w-full h-16 bg-background border-t border-border md:hidden">
-      <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => (
           <button
             key={item.view}
