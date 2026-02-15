@@ -4,6 +4,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import type { OperatorView } from '@/lib/types';
 import { DashboardView } from '@/components/truck-operator/dashboard-view';
 import { TaskFeedView } from '@/components/truck-operator/task-feed-view';
+import { StatsView } from '@/components/truck-operator/stats-view';
 import { OperatorSidebar } from '@/components/truck-operator/operator-sidebar';
 import { OperatorHeader } from '@/components/truck-operator/operator-header';
 import { OperatorBottomNav } from '@/components/truck-operator/operator-bottom-nav';
@@ -18,7 +19,7 @@ const viewTitles: Record<OperatorView, string> = {
 };
 
 export default function TruckOperatorPage() {
-  const [activeView, setActiveView] = useState<OperatorView>('feed');
+  const [activeView, setActiveView] = useState<OperatorView>('stats');
   const isMobile = useIsMobile();
 
   const renderContent = () => {
@@ -27,6 +28,8 @@ export default function TruckOperatorPage() {
         return <DashboardView />;
       case 'feed':
         return <TaskFeedView />;
+      case 'stats':
+        return <StatsView />;
       // Other cases for other views can be added here
       default:
         return (
@@ -44,7 +47,7 @@ export default function TruckOperatorPage() {
     <>
       {!isMobile && <OperatorSidebar activeView={activeView} setActiveView={setActiveView} />}
       <SidebarInset>
-        {activeView !== 'feed' && (
+        {activeView !== 'feed' && activeView !== 'stats' && (
           <OperatorHeader title={viewTitles[activeView]} setActiveView={setActiveView} />
         )}
         <main className="flex-1 overflow-y-auto pb-20 md:pb-0 bg-[#131A21]">
