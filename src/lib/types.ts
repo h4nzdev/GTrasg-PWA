@@ -32,3 +32,10 @@ export type Truck = {
   status: 'On Route' | 'Idle' | 'At Depot';
   eta: string;
 };
+
+export type OperatorView =
+  | 'dashboard'
+  | 'reports'
+  | 'vehicle'
+  | 'settings'
+  | 'profile';
