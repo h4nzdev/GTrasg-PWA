@@ -17,9 +17,9 @@ import { cn } from '@/lib/utils';
 
 export function TaskFeedView() {
   return (
-    <div className="w-full bg-[#131A21] text-white min-h-full">
+    <div className="w-full bg-background text-foreground min-h-full">
       {/* Header */}
-      <header className="p-4 space-y-4 bg-[#1C2C3A]">
+      <header className="p-4 space-y-4 bg-card">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Task Feed</h1>
           <Button variant="ghost" size="icon">
@@ -27,29 +27,29 @@ export function TaskFeedView() {
           </Button>
         </div>
         <div className="flex items-center gap-2 text-sm">
-          <span className="text-gray-400">ROUTE: CEBU NORTH - SECTOR 4</span>
-          <ChevronRight className="h-4 w-4 text-gray-500" />
+          <span className="text-muted-foreground">ROUTE: CEBU NORTH - SECTOR 4</span>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
         </div>
         <div>
-          <div className="flex justify-between items-center mb-1 text-xs font-medium text-gray-300">
+          <div className="flex justify-between items-center mb-1 text-xs font-medium text-muted-foreground">
             <span>ROUTE PROGRESS</span>
             <span>8/12 Cleared</span>
           </div>
-          <Progress value={(8 / 12) * 100} className="h-2 bg-gray-700 [&>div]:bg-green-500" />
+          <Progress value={(8 / 12) * 100} className="h-2 bg-muted [&>div]:bg-primary" />
         </div>
       </header>
       
       {/* Filters */}
       <div className="p-4 flex gap-2 overflow-x-auto">
-          <Button className="bg-green-500/20 text-green-300 hover:bg-green-500/30 border border-green-500/30">Near You</Button>
-          <Button variant="outline" className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white">Priority (3)</Button>
-          <Button variant="outline" className="bg-transparent border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white">Overflowing Bins</Button>
+          <Button className="bg-primary/20 text-primary hover:bg-primary/30 border border-primary/30">Near You</Button>
+          <Button variant="outline" className="bg-transparent border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground">Priority (3)</Button>
+          <Button variant="outline" className="bg-transparent border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground">Overflowing Bins</Button>
       </div>
 
       {/* Task List */}
       <div className="p-4 space-y-4">
         {tasks.map((task) => (
-          <Card key={task.id} className="bg-[#1C2C3A] border-gray-700 overflow-hidden">
+          <Card key={task.id} className="bg-card border-border overflow-hidden">
             <CardContent className="p-0">
               <div className="flex gap-4 p-4">
                 <Image
@@ -62,24 +62,24 @@ export function TaskFeedView() {
                 />
                 <div className="flex-1">
                   {task.status === 'CRITICAL' && (
-                     <Badge className="bg-red-500/20 text-red-300 border-red-500/30 mb-1">CRITICAL</Badge>
+                     <Badge className="bg-destructive/10 text-destructive border-destructive/20 mb-1">CRITICAL</Badge>
                   )}
                   <h3 className="font-bold text-lg">{task.title}</h3>
-                  <p className="text-sm text-gray-400 line-clamp-2">{task.description}</p>
-                  <div className="text-xs text-gray-500 mt-1 flex items-center gap-4">
+                  <p className="text-sm text-muted-foreground line-clamp-2">{task.description}</p>
+                  <div className="text-xs text-muted-foreground mt-1 flex items-center gap-4">
                      <span>▼ {task.distance}</span>
                      <span>• {task.time}</span>
                   </div>
                 </div>
               </div>
-              <div className="bg-black/20 px-4 py-3 flex justify-between items-center">
-                  <Button variant="ghost" className="text-green-400 hover:text-green-300 p-0 h-auto">
+              <div className="bg-muted/50 px-4 py-3 flex justify-between items-center">
+                  <Button variant="ghost" className="text-primary hover:text-primary/90 p-0 h-auto">
                       <Navigation className="h-4 w-4 mr-2"/>
                       <span className="font-semibold">NAVIGATE</span>
                   </Button>
                   <div className="flex items-center space-x-2">
-                    <Checkbox id={`task-${task.id}`} className="border-gray-500 data-[state=checked]:bg-green-500 data-[state=checked]:border-green-400"/>
-                    <Label htmlFor={`task-${task.id}`} className="text-gray-400 font-semibold text-sm">MARK CLEARED</Label>
+                    <Checkbox id={`task-${task.id}`} />
+                    <Label htmlFor={`task-${task.id}`} className="text-muted-foreground font-semibold text-sm">MARK CLEARED</Label>
                 </div>
               </div>
             </CardContent>
@@ -87,7 +87,7 @@ export function TaskFeedView() {
         ))}
 
         {/* Cluster View Card */}
-        <Card className="bg-[#1C2C3A] border-gray-700 overflow-hidden relative aspect-[16/7]">
+        <Card className="bg-card border-border overflow-hidden relative aspect-[16/7]">
              <Image
                 src={getImage('map').imageUrl}
                 alt={getImage('map').description}
@@ -98,15 +98,15 @@ export function TaskFeedView() {
              <div className="absolute inset-0 p-4 flex justify-between items-end">
                 <div>
                     <h3 className="font-bold text-lg">Cluster View</h3>
-                    <p className="text-sm text-gray-400">2 more tasks found nearby</p>
+                    <p className="text-sm text-muted-foreground">2 more tasks found nearby</p>
                 </div>
-                <Button size="icon" className="bg-green-500/20 hover:bg-green-500/30 text-green-300">
+                <Button size="icon" className="bg-primary/20 hover:bg-primary/30 text-primary">
                     <Expand className="h-5 w-5"/>
                 </Button>
              </div>
         </Card>
         
-        <p className="text-center text-gray-600 font-bold text-xs py-4">END OF FEED</p>
+        <p className="text-center text-muted-foreground font-bold text-xs py-4">END OF FEED</p>
       </div>
     </div>
   );

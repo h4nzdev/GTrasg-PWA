@@ -55,7 +55,7 @@ export default function TruckOperatorPage() {
         {activeView !== 'feed' && activeView !== 'stats' && activeView !== 'profile' && (
           <OperatorHeader title={viewTitles[activeView]} setActiveView={setActiveView} />
         )}
-        <main className="flex-1 overflow-y-auto pb-20 md:pb-0 bg-[#131A21]">
+        <main className="flex-1 overflow-y-auto pb-20 md:pb-0 bg-background">
           {renderContent()}
         </main>
       </SidebarInset>

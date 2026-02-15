@@ -19,7 +19,7 @@ const navItems = [
 
 export function OperatorBottomNav({ activeView, setActiveView }: OperatorBottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 z-50 w-full h-20 bg-[#1A2C3A] border-t border-blue-400/20 md:hidden">
+    <nav className="fixed bottom-0 left-0 z-50 w-full h-20 bg-card border-t border-primary/20 md:hidden">
       <div className="grid h-full grid-cols-5 mx-auto font-medium">
         {navItems.slice(0, 2).map((item) => (
           <button
@@ -28,8 +28,8 @@ export function OperatorBottomNav({ activeView, setActiveView }: OperatorBottomN
             className={cn(
               'inline-flex flex-col items-center justify-center px-5 group',
               activeView === item.view
-                ? 'text-green-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-primary'
+                : 'text-muted-foreground hover:text-foreground'
             )}
             onClick={() => setActiveView(item.view as OperatorView)}
           >
@@ -39,7 +39,7 @@ export function OperatorBottomNav({ activeView, setActiveView }: OperatorBottomN
         ))}
 
         <div className="flex items-center justify-center">
-            <Button size="icon" className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 shadow-lg -translate-y-6 ring-4 ring-[#1A2C3A]">
+            <Button size="icon" className="w-16 h-16 rounded-full bg-primary hover:bg-primary/90 shadow-lg -translate-y-6 ring-4 ring-card">
                 <Plus className="h-8 w-8" />
             </Button>
         </div>
@@ -51,8 +51,8 @@ export function OperatorBottomNav({ activeView, setActiveView }: OperatorBottomN
             className={cn(
               'inline-flex flex-col items-center justify-center px-5 group',
               activeView === item.view
-                ? 'text-green-400'
-                : 'text-gray-400 hover:text-white'
+                ? 'text-primary'
+                : 'text-muted-foreground hover:text-foreground'
             )}
             onClick={() => setActiveView(item.view as OperatorView)}
           >
