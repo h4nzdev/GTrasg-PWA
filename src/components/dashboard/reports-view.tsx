@@ -17,6 +17,8 @@ import { reports } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { Report } from '@/lib/types';
+import type { View } from '@/app/page';
+import type { Dispatch, SetStateAction } from 'react';
 
 const statusVariants: Record<Report['status'], string> = {
   Resolved: 'bg-primary border-transparent text-primary-foreground',
@@ -36,7 +38,11 @@ const ctaIcon: Record<Report['status'], React.ReactNode> = {
   Reported: null,
 };
 
-export function ReportsView() {
+export function ReportsView({
+  setActiveView,
+}: {
+  setActiveView: Dispatch<SetStateAction<View>>;
+}) {
   return (
     <div className="relative space-y-4">
       <div className="flex items-center justify-between">
@@ -65,7 +71,8 @@ export function ReportsView() {
       </div>
       <Button
         size="icon"
-        className="fixed bottom-20 right-4 z-40 h-16 w-16 rounded-full shadow-lg md:hidden"
+        className="fixed bottom-20 right-5 z-40 h-16 w-16 rounded-full shadow-lg md:hidden"
+        onClick={() => setActiveView('report-form')}
       >
         <Camera className="h-8 w-8" />
         <span className="sr-only">New Report</span>

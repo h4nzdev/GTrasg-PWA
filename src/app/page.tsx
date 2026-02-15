@@ -6,10 +6,11 @@ import { ScannerView } from '@/components/dashboard/scanner-view';
 import { ReportsView } from '@/components/dashboard/reports-view';
 import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
 import { SettingsView } from '@/components/dashboard/settings-view';
+import { ReportFormView } from '@/components/dashboard/report-form-view';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 
-export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard' | 'settings';
+export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard' | 'settings' | 'report-form';
 
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
@@ -17,6 +18,7 @@ const viewTitles: Record<View, string> = {
   reports: 'Community Feed',
   leaderboard: 'Eco-Points Leaderboard',
   settings: 'Settings',
+  'report-form': 'Community Report',
 };
 
 export default function Home() {
@@ -28,9 +30,10 @@ export default function Home() {
         <>
           {activeView === 'dashboard' && <MapView setActiveView={setActiveView} />}
           {activeView === 'scanner' && <ScannerView setActiveView={setActiveView} />}
-          {activeView === 'reports' && <ReportsView />}
+          {activeView === 'reports' && <ReportsView setActiveView={setActiveView} />}
           {activeView === 'leaderboard' && <LeaderboardView />}
           {activeView === 'settings' && <SettingsView />}
+          {activeView === 'report-form' && <ReportFormView setActiveView={setActiveView} />}
         </>
       )}
     </AppLayout>
