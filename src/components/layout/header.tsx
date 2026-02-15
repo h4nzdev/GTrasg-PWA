@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 interface HeaderProps {
@@ -23,16 +22,19 @@ export function Header({ title }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-      <SidebarTrigger className="sm:hidden" />
-      <h1 className="hidden text-xl font-semibold sm:block">{title}</h1>
-      <div className="ml-auto flex items-center gap-2">
+      <h1 className="flex-1 text-xl font-semibold">{title}</h1>
+      <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" className="rounded-full">
           <Bell className="h-5 w-5" />
           <span className="sr-only">Toggle notifications</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="overflow-hidden rounded-full">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="overflow-hidden rounded-full"
+            >
               {userAvatar ? (
                 <Image
                   src={userAvatar.imageUrl}
