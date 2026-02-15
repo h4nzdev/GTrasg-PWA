@@ -85,12 +85,12 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              onClick={() => setActiveView('leaderboard')}
-              isActive={activeView === 'leaderboard'}
-              tooltip="Leaderboard"
+              onClick={() => setActiveView('profile')}
+              isActive={activeView === 'profile'}
+              tooltip="Profile"
             >
               <Trophy />
-              <span>Leaderboard</span>
+              <span>Profile</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>

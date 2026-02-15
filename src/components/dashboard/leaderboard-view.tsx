@@ -18,6 +18,7 @@ const rankColors = {
   3: 'text-orange-400',
 };
 
+// This component is no longer used, but kept to avoid breaking changes in file structure.
 export function LeaderboardView() {
   return (
     <Card className="mx-auto max-w-2xl">

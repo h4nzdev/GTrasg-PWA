@@ -14,7 +14,7 @@ const navItems = [
   { view: 'dashboard', icon: Map, label: 'Map' },
   { view: 'scanner', icon: ScanLine, label: 'Scanner' },
   { view: 'reports', icon: MessageCircleWarning, label: 'Feed' },
-  { view: 'leaderboard', icon: Trophy, label: 'Leaderboard' },
+  { view: 'profile', icon: Trophy, label: 'Profile' },
   { view: 'settings', icon: Settings, label: 'Settings' },
 ];
 

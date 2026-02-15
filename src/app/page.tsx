@@ -4,19 +4,19 @@ import { AppLayout } from '@/components/layout/app-layout';
 import { MapView } from '@/components/dashboard/map-view';
 import { ScannerView } from '@/components/dashboard/scanner-view';
 import { ReportsView } from '@/components/dashboard/reports-view';
-import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
+import { ProfileView } from '@/components/dashboard/profile-view';
 import { SettingsView } from '@/components/dashboard/settings-view';
 import { ReportFormView } from '@/components/dashboard/report-form-view';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 
-export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard' | 'settings' | 'report-form';
+export type View = 'dashboard' | 'scanner' | 'reports' | 'profile' | 'settings' | 'report-form';
 
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
   scanner: 'AI Waste Scanner',
   reports: 'Community Feed',
-  leaderboard: 'Eco-Points Leaderboard',
+  profile: 'Eco Stats & Badges',
   settings: 'Settings',
   'report-form': 'Community Report',
 };
@@ -31,7 +31,7 @@ export default function Home() {
           {activeView === 'dashboard' && <MapView setActiveView={setActiveView} />}
           {activeView === 'scanner' && <ScannerView setActiveView={setActiveView} />}
           {activeView === 'reports' && <ReportsView setActiveView={setActiveView} />}
-          {activeView === 'leaderboard' && <LeaderboardView />}
+          {activeView === 'profile' && <ProfileView setActiveView={setActiveView} />}
           {activeView === 'settings' && <SettingsView />}
           {activeView === 'report-form' && <ReportFormView setActiveView={setActiveView} />}
         </>
