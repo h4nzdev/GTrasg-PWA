@@ -6,6 +6,7 @@ import { ScannerView } from '@/components/dashboard/scanner-view';
 import { ReportsView } from '@/components/dashboard/reports-view';
 import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
 import type { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 
 export type View = 'dashboard' | 'scanner' | 'reports' | 'leaderboard';
 
@@ -17,12 +18,14 @@ const viewTitles: Record<View, string> = {
 };
 
 export default function Home() {
+  const [activeView, setActiveView] = useState<View>('dashboard');
+
   return (
-    <AppLayout viewTitles={viewTitles}>
+    <AppLayout viewTitles={viewTitles} activeView={activeView} setActiveView={setActiveView}>
       {(activeView, setActiveView) => (
         <>
           {activeView === 'dashboard' && <MapView setActiveView={setActiveView} />}
-          {activeView === 'scanner' && <ScannerView />}
+          {activeView === 'scanner' && <ScannerView setActiveView={setActiveView} />}
           {activeView === 'reports' && <ReportsView />}
           {activeView === 'leaderboard' && <LeaderboardView />}
         </>

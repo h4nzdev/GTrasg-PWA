@@ -10,17 +10,22 @@ import type { View } from '@/app/page';
 
 interface AppLayoutProps {
   children: (activeView: View, setActiveView: Dispatch<SetStateAction<View>>) => ReactNode;
-  initialView?: View;
+  activeView: View;
+  setActiveView: Dispatch<SetStateAction<View>>;
   viewTitles: Record<View, string>;
 }
 
 export function AppLayout({
   children,
-  initialView = 'dashboard',
+  activeView,
+  setActiveView,
   viewTitles,
 }: AppLayoutProps) {
-  const [activeView, setActiveView] = useState<View>(initialView);
   const isMobile = useIsMobile();
+
+  if (activeView === 'scanner') {
+    return children(activeView, setActiveView);
+  }
 
   return (
     <SidebarProvider>

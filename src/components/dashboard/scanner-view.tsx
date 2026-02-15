@@ -1,158 +1,181 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import Image from 'next/image';
-import { UploadCloud, Recycle, Leaf, Trash2, Loader2, X } from 'lucide-react';
+import { useState, useTransition, useEffect, useRef, type Dispatch, type SetStateAction } from 'react';
+import { Image as GalleryIcon, Camera, History, X, Trash2, Loader2, MapPin, Info, Recycle, CheckCircle2 } from 'lucide-react';
 import type { ClassifyWasteItemOutput } from '@/ai/flows/ai-waste-segregation-scanner';
 import { classifyWasteItem } from '@/ai/flows/ai-waste-segregation-scanner';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
-import { Badge } from '../ui/badge';
+import type { View } from '@/app/page';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 
 const categoryIcons = {
-  biodegradable: <Leaf className="h-8 w-8 text-green-500" />,
-  recyclable: <Recycle className="h-8 w-8 text-blue-500" />,
-  residual: <Trash2 className="h-8 w-8 text-gray-500" />,
+  biodegradable: <Recycle className="h-6 w-6 text-green-400" />,
+  recyclable: <Recycle className="h-6 w-6 text-green-400" />,
+  residual: <Trash2 className="h-6 w-6 text-green-400" />,
 };
 
-const categoryColors = {
-  biodegradable: 'bg-green-500/10 text-green-500 border-green-500/20',
-  recyclable: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-  residual: 'bg-gray-500/10 text-gray-500 border-gray-500/20',
-}
-
-export function ScannerView() {
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+export function ScannerView({ setActiveView }: { setActiveView: Dispatch<SetStateAction<View>> }) {
   const [result, setResult] = useState<ClassifyWasteItemOutput | null>(null);
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
-  const placeholderImage = PlaceHolderImages.find((img) => img.id === 'scanner-placeholder');
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | undefined>(undefined);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-      setResult(null);
-    }
-  };
-
-  const handleScan = () => {
-    if (!file) return;
-
-    startTransition(async () => {
+  useEffect(() => {
+    const getCameraPermission = async () => {
       try {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = async () => {
-          const base64 = reader.result as string;
-          const classificationResult = await classifyWasteItem({ wasteItemPhotoDataUri: base64 });
-          setResult(classificationResult);
-        };
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+        setHasCameraPermission(true);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
       } catch (error) {
+        console.error('Error accessing camera:', error);
+        setHasCameraPermission(false);
         toast({
-          title: 'Error',
-          description: 'Failed to classify the item. Please try again.',
           variant: 'destructive',
+          title: 'Camera Access Denied',
+          description: 'Please enable camera permissions in your browser settings to use this app.',
         });
       }
-    });
-  };
+    };
+    getCameraPermission();
+    
+    return () => {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [toast]);
 
-  const clearSelection = () => {
-    setFile(null);
-    setPreview(null);
+  const handleScan = () => {
+    if (!videoRef.current || !canvasRef.current || isPending) return;
     setResult(null);
-    const fileInput = document.getElementById('file-upload') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = '';
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+    if(context){
+        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        const dataUri = canvas.toDataURL('image/jpeg');
+        
+        startTransition(async () => {
+            try {
+                const classificationResult = await classifyWasteItem({ wasteItemPhotoDataUri: dataUri });
+                setResult(classificationResult);
+            } catch (error) {
+                toast({
+                title: 'Error',
+                description: 'Failed to classify the item. Please try again.',
+                variant: 'destructive',
+                });
+            }
+        });
     }
   };
 
+  const clearResult = () => {
+    setResult(null);
+  }
 
   return (
-    <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
-      <Card className="flex flex-col">
-        <CardHeader>
-          <CardTitle>Upload Waste Item</CardTitle>
-          <CardDescription>Take a picture or upload an image of a waste item to classify it.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-1 flex-col items-center justify-center">
-          <label htmlFor="file-upload" className="flex w-full flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-card hover:bg-muted/50">
-            {preview ? (
-              <div className="relative h-full w-full">
-                <Image src={preview} alt="Preview" fill className="object-contain p-4" />
-                <Button variant="ghost" size="icon" className="absolute right-2 top-2 rounded-full bg-background/50 backdrop-blur-sm" onClick={(e) => { e.preventDefault(); clearSelection();}}>
-                    <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ) : (
-              <div className="text-center">
-                <UploadCloud className="mx-auto h-12 w-12 text-muted-foreground" />
-                <p className="mt-4 text-sm text-muted-foreground">
-                  <span className="font-semibold text-accent">Click to upload</span> or drag and drop
-                </p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, or WEBP</p>
-              </div>
-            )}
-          </label>
-          <input id="file-upload" type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-        </CardContent>
-        <div className="p-6 pt-0">
-          <Button onClick={handleScan} disabled={!file || isPending} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-            {isPending ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Scanning...
-              </>
-            ) : (
-              'Scan Item'
-            )}
-          </Button>
+    <div className="fixed inset-0 z-40 flex flex-col bg-[#1C211F] text-white">
+      {/* Header */}
+      <header className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/50 to-transparent">
+        <Button variant="ghost" size="icon" className="rounded-full bg-black/20 hover:bg-black/40" onClick={() => setActiveView('dashboard')}>
+          <X className="h-6 w-6" />
+        </Button>
+        <h1 className="text-lg font-semibold">AI Trash Scanner</h1>
+        <Button variant="ghost" size="icon" className="rounded-full bg-black/20 hover:bg-black/40" onClick={clearResult}>
+          <Trash2 className="h-6 w-6" />
+        </Button>
+      </header>
+
+      {/* Camera View */}
+      <div className="relative flex-1 bg-black">
+        <div className="absolute inset-0 overflow-hidden">
+            <video ref={videoRef} className="h-full w-full object-cover" autoPlay muted playsInline />
         </div>
-      </Card>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle>Classification Result</CardTitle>
-          <CardDescription>AI-powered analysis of your waste item.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex h-full flex-col items-center justify-center text-center">
-          {isPending ? (
-            <div className="flex flex-col items-center gap-4">
-              <Loader2 className="h-16 w-16 animate-spin text-primary" />
-              <p className="text-muted-foreground">Analyzing image...</p>
-            </div>
-          ) : result ? (
-            <div className="flex flex-col items-center gap-4">
-               <div className={cn("rounded-full p-4", categoryColors[result.classification])}>
-                {categoryIcons[result.classification]}
+        
+        <div className="absolute inset-0 flex items-center justify-center p-8">
+            <div className="w-full max-w-sm aspect-square rounded-2xl border-4 border-white/50 border-dashed" />
+        </div>
+
+        {isPending && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <Loader2 className="h-16 w-16 animate-spin text-green-500" />
+          </div>
+        )}
+        
+        {result && (
+              <div className="absolute top-20 left-1/2 -translate-x-1/2">
+                <Badge className="bg-green-500/80 text-white border-green-400 py-2 px-4 text-sm backdrop-blur-sm">
+                    <CheckCircle2 className="mr-2 h-5 w-5" />
+                    {result.classification === 'recyclable' ? 'Plastic' : result.classification.charAt(0).toUpperCase() + result.classification.slice(1)} Detected
+                </Badge>
               </div>
-              <h3 className="text-2xl font-bold capitalize">{result.classification}</h3>
-              <p className="text-muted-foreground">{result.explanation}</p>
+        )}
+
+        {hasCameraPermission === false && (
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+                <Alert variant="destructive">
+                    <AlertTitle>Camera Access Required</AlertTitle>
+                    <AlertDescription>
+                    Please allow camera access to use this feature.
+                    </AlertDescription>
+                </Alert>
             </div>
-          ) : (
-            <div className="flex flex-col items-center gap-4">
-                {placeholderImage && <Image src={placeholderImage.imageUrl} alt="Scan placeholder" width={150} height={150} className="opacity-10" data-ai-hint={placeholderImage.imageHint}/>}
-                <p className="text-muted-foreground">Upload an image and click "Scan Item" to see the result.</p>
+        )}
+        <canvas ref={canvasRef} className="hidden"></canvas>
+      </div>
+
+      {/* Bottom Sheet */}
+      <div className="bg-[#2A312E] p-6 rounded-t-3xl relative">
+        {result ? (
+            <div>
+                <Badge variant="secondary" className="bg-green-500/20 text-green-300">CEBU WASTE GUIDE</Badge>
+                <div className="flex justify-between items-center mt-2">
+                    <h2 className="text-2xl font-bold capitalize">{result.classification === 'recyclable' ? 'Recyclable - Plastic' : result.classification}</h2>
+                    <div className="bg-green-500/20 p-2 rounded-full">
+                        {categoryIcons[result.classification] || <Recycle className="h-6 w-6 text-green-400" />}
+                    </div>
+                </div>
+                <div className="mt-4 bg-black/20 p-4 rounded-lg flex items-start gap-3">
+                    <Info className="h-5 w-5 text-gray-400 mt-1 flex-shrink-0"/>
+                    <div>
+                        <h3 className="font-semibold">Preparation Instructions</h3>
+                        <p className="text-sm text-gray-400">{result.explanation}</p>
+                    </div>
+                </div>
             </div>
-          )}
-        </CardContent>
-      </Card>
+        ) : (
+            <div className="text-center text-gray-400 py-8">
+                <p>Point your camera at an item to scan it.</p>
+            </div>
+        )}
+        <div className="mt-6 flex justify-around items-center">
+            <Button variant="ghost" className="flex flex-col h-auto text-gray-300 hover:text-white">
+                <GalleryIcon className="h-6 w-6" />
+                <span className="text-xs mt-1">GALLERY</span>
+            </Button>
+            <Button size="icon" className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 ring-4 ring-black/30" onClick={handleScan} disabled={isPending || hasCameraPermission !== true}>
+                <Camera className="h-8 w-8" />
+            </Button>
+            <Button variant="ghost" className="flex flex-col h-auto text-gray-300 hover:text-white">
+                <History className="h-6 w-6" />
+                <span className="text-xs mt-1">HISTORY</span>
+            </Button>
+        </div>
+        <div className="mt-6 flex justify-center items-center gap-2 text-sm text-green-400">
+            <MapPin className="h-4 w-4" />
+            <span>LAHUO, CEBU CITY</span>
+        </div>
+      </div>
     </div>
   );
 }
