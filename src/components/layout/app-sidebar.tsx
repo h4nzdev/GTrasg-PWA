@@ -7,9 +7,9 @@ import {
   MessageCircleWarning,
   Recycle,
   ScanLine,
-  Trophy,
   LogOut,
   Settings,
+  User,
 } from 'lucide-react';
 
 import type { View } from '@/app/page';
@@ -85,16 +85,6 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              onClick={() => setActiveView('profile')}
-              isActive={activeView === 'profile'}
-              tooltip="Profile"
-            >
-              <Trophy />
-              <span>Profile</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
               onClick={() => setActiveView('settings')}
               isActive={activeView === 'settings'}
               tooltip="Settings"
@@ -124,6 +114,11 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent side="right" align="start">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setActiveView('profile')}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />
