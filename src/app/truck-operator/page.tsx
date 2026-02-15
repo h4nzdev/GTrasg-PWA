@@ -10,6 +10,7 @@ import { OperatorSidebar } from '@/components/truck-operator/operator-sidebar';
 import { OperatorHeader } from '@/components/truck-operator/operator-header';
 import { OperatorBottomNav } from '@/components/truck-operator/operator-bottom-nav';
 import { SidebarInset } from '@/components/ui/sidebar';
+import { SettingsView } from '@/components/truck-operator/settings-view';
 
 const viewTitles: Record<OperatorView, string> = {
   dashboard: 'Live Route',
@@ -20,7 +21,7 @@ const viewTitles: Record<OperatorView, string> = {
 };
 
 export default function TruckOperatorPage() {
-  const [activeView, setActiveView] = useState<OperatorView>('stats');
+  const [activeView, setActiveView] = useState<OperatorView>('dashboard');
   const isMobile = useIsMobile();
 
   const renderContent = () => {
@@ -33,7 +34,8 @@ export default function TruckOperatorPage() {
         return <StatsView />;
       case 'profile':
         return <ProfileView />;
-      // Other cases for other views can be added here
+      case 'settings':
+        return <SettingsView />;
       default:
         return (
           <div className="p-4 sm:p-6">
