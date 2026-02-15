@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +18,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 
 const formSchema = z.object({
@@ -91,25 +89,10 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  const loginImage = PlaceHolderImages.find((img) => img.id === 'login-truck');
-
   return (
     <div className="flex min-h-screen flex-col bg-[#1C211F] text-white">
       <main className="flex flex-1 flex-col items-center justify-center p-6">
         <div className="w-full max-w-sm">
-          {loginImage && (
-            <div className="mb-8 overflow-hidden rounded-lg">
-              <Image
-                src={loginImage.imageUrl}
-                alt={loginImage.description}
-                data-ai-hint={loginImage.imageHint}
-                width={600}
-                height={400}
-                className="w-full object-cover"
-              />
-            </div>
-          )}
-
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold">Welcome Back!</h2>
             <p className="text-gray-400">Help keep Cebu clean and green.</p>
