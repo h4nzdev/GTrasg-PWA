@@ -1,7 +1,10 @@
 'use client';
 
+import type { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
-import { Bell, LogOut, Settings } from 'lucide-react';
+import { Bell, LogOut, User } from 'lucide-react';
+import type { View } from '@/app/page';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,9 +18,10 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 interface HeaderProps {
   title: string;
+  setActiveView: Dispatch<SetStateAction<View>>;
 }
 
-export function Header({ title }: HeaderProps) {
+export function Header({ title, setActiveView }: HeaderProps) {
   const userAvatar = PlaceHolderImages.find((img) => img.id === 'user-avatar-1');
 
   return (
@@ -51,6 +55,11 @@ export function Header({ title }: HeaderProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setActiveView('profile')}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut className="mr-2 h-4 w-4" />

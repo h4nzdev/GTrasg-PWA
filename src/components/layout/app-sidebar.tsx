@@ -10,6 +10,7 @@ import {
   LogOut,
   Settings,
   User,
+  Trophy,
 } from 'lucide-react';
 
 import type { View } from '@/app/page';
@@ -81,6 +82,16 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
             >
               <MessageCircleWarning />
               <span>Community Feed</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={() => setActiveView('leaderboard')}
+              isActive={activeView === 'leaderboard'}
+              tooltip="Leaderboard"
+            >
+              <Trophy />
+              <span>Leaderboard</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>

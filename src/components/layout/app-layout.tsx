@@ -33,7 +33,7 @@ export function AppLayout({
         <AppSidebar activeView={activeView} setActiveView={setActiveView} />
       )}
       <SidebarInset>
-        <Header title={viewTitles[activeView]} />
+        <Header title={viewTitles[activeView]} setActiveView={setActiveView} />
         <main className="p-4 pt-0 sm:p-6 sm:pt-0 pb-20 md:pb-6">
           {children(activeView, setActiveView)}
         </main>

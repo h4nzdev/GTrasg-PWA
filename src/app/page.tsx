@@ -7,10 +7,11 @@ import { ReportsView } from '@/components/dashboard/reports-view';
 import { ProfileView } from '@/components/dashboard/profile-view';
 import { SettingsView } from '@/components/dashboard/settings-view';
 import { ReportFormView } from '@/components/dashboard/report-form-view';
+import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 
-export type View = 'dashboard' | 'scanner' | 'reports' | 'profile' | 'settings' | 'report-form';
+export type View = 'dashboard' | 'scanner' | 'reports' | 'profile' | 'settings' | 'report-form' | 'leaderboard';
 
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
@@ -19,6 +20,7 @@ const viewTitles: Record<View, string> = {
   profile: 'Eco Stats & Badges',
   settings: 'Settings',
   'report-form': 'Community Report',
+  leaderboard: 'Leaderboard',
 };
 
 export default function Home() {
@@ -34,6 +36,7 @@ export default function Home() {
           {activeView === 'profile' && <ProfileView setActiveView={setActiveView} />}
           {activeView === 'settings' && <SettingsView />}
           {activeView === 'report-form' && <ReportFormView setActiveView={setActiveView} />}
+          {activeView === 'leaderboard' && <LeaderboardView />}
         </>
       )}
     </AppLayout>
