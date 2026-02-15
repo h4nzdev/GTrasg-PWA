@@ -82,7 +82,7 @@ export function ProfileView({
   setActiveView: Dispatch<SetStateAction<View>>;
 }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-4 sm:p-6">
       <div className="flex flex-col items-center text-center">
         <div className="relative">
           <Avatar className="h-24 w-24 border-4 border-primary">

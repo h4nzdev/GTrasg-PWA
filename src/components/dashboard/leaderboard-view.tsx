@@ -17,7 +17,7 @@ const otherUsers = leaderboard.slice(3);
 export function LeaderboardView() {
   const currentUser = leaderboard.find((u) => u.isCurrentUser);
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-4 sm:p-6">
       <Tabs defaultValue="local" className="w-full">
         <TabsList className="grid w-full grid-cols-2 bg-muted p-1">
           <TabsTrigger

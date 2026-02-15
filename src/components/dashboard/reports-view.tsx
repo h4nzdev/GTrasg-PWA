@@ -44,7 +44,7 @@ export function ReportsView({
   setActiveView: Dispatch<SetStateAction<View>>;
 }) {
   return (
-    <div className="relative space-y-4">
+    <div className="relative space-y-4 p-4 sm:p-6">
       <div className="flex items-center justify-between">
         <Tabs defaultValue="recent" className="w-full">
           <div className="flex items-center gap-2">

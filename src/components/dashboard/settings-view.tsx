@@ -15,29 +15,31 @@ export function SettingsView() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <Card className="mx-auto max-w-2xl">
-      <CardHeader>
-        <CardTitle>Settings</CardTitle>
-        <CardDescription>
-          Manage your application and profile settings.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-between space-x-2 rounded-lg border p-4">
-          <Label htmlFor="dark-mode" className="flex flex-col space-y-1">
-            <span>Dark Mode</span>
-            <span className="font-normal leading-snug text-muted-foreground">
-              Enjoy a darker color scheme.
-            </span>
-          </Label>
-          <Switch
-            id="dark-mode"
-            checked={theme === 'dark'}
-            onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
-            aria-label="Toggle dark mode"
-          />
-        </div>
-      </CardContent>
-    </Card>
+    <div className="p-4 sm:p-6">
+      <Card className="mx-auto max-w-2xl">
+        <CardHeader>
+          <CardTitle>Settings</CardTitle>
+          <CardDescription>
+            Manage your application and profile settings.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center justify-between space-x-2 rounded-lg border p-4">
+            <Label htmlFor="dark-mode" className="flex flex-col space-y-1">
+              <span>Dark Mode</span>
+              <span className="font-normal leading-snug text-muted-foreground">
+                Enjoy a darker color scheme.
+              </span>
+            </Label>
+            <Switch
+              id="dark-mode"
+              checked={theme === 'dark'}
+              onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+              aria-label="Toggle dark mode"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

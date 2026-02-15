@@ -3,17 +3,19 @@
 import Image from 'next/image';
 import {
   Search,
-  MapPin,
   Navigation,
   Layers,
   ScanLine,
   MessageCircleWarning,
-  ArrowRight,
+  Bell,
+  TrendingUp,
+  Gem,
+  Leaf,
+  Truck,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { trucks } from '@/lib/data';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { View } from '@/app/page';
 import type { Dispatch, SetStateAction } from 'react';
@@ -27,82 +29,141 @@ export function MapView({
   const firstTruck = trucks[0];
 
   return (
-    <div className="space-y-4">
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          placeholder="Search your area (e.g., Cebu City)"
-          className="pl-10"
+    <div className="relative h-full w-full">
+      {mapImage && (
+        <Image
+          src={mapImage.imageUrl}
+          alt={mapImage.description}
+          data-ai-hint={mapImage.imageHint}
+          fill
+          className="object-cover"
         />
-      </div>
-
-      <Card className="overflow-hidden rounded-2xl">
-        <CardContent className="relative p-0">
-          {mapImage && (
-            <Image
-              src={mapImage.imageUrl}
-              alt={mapImage.description}
-              data-ai-hint={mapImage.imageHint}
-              width={1200}
-              height={800}
-              className="aspect-[4/3] h-full w-full object-cover"
-            />
-          )}
-          <div className="absolute right-4 top-4 flex flex-col gap-2">
-            <Button
-              size="icon"
-              variant="secondary"
-              className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
-            >
-              <Navigation className="h-6 w-6" />
-            </Button>
-            <Button
-              size="icon"
-              variant="secondary"
-              className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
-            >
-              <Layers className="h-6 w-6" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {firstTruck && (
-        <Card className="border-yellow-500/30 bg-yellow-400/10">
-          <CardContent className="flex items-center gap-4 p-4">
-            <div className="rounded-full bg-yellow-500/20 p-3 text-yellow-700">
-              <MapPin className="h-6 w-6" />
-            </div>
-            <div className="flex-1">
-              <p className="font-semibold text-yellow-900">Truck is 5km away</p>
-              <p className="text-sm text-yellow-800/80">
-                Estimated arrival: {firstTruck.eta}
-              </p>
-            </div>
-            <Button variant="ghost" size="sm" className="text-yellow-900 hover:bg-yellow-500/20">
-              View Details <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </CardContent>
-        </Card>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background" />
+
+      <div className="relative z-10 flex h-full flex-col justify-between p-4">
+        {/* Top Section */}
+        <div>
+          <header className="flex items-start justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase text-primary">
+                CEBU CITY
+              </p>
+              <h1 className="text-2xl font-bold text-foreground">
+                Eco Dashboard
+              </h1>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-card/60 backdrop-blur-sm"
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full bg-card/60 backdrop-blur-sm"
+              >
+                <Bell className="h-5 w-5" />
+              </Button>
+            </div>
+          </header>
+
+          <div className="my-4 grid grid-cols-3 gap-3">
+            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+              <CardContent className="space-y-1 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <TrendingUp className="h-4 w-4 text-primary" />
+                  <span>km Total</span>
+                </div>
+                <p className="text-lg font-bold">12.4</p>
+              </CardContent>
+            </Card>
+            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+              <CardContent className="space-y-1 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <Gem className="h-4 w-4 text-yellow-400" />
+                  <span>Points</span>
+                </div>
+                <p className="text-lg font-bold">650</p>
+              </CardContent>
+            </Card>
+            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+              <CardContent className="space-y-1 p-3">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <Leaf className="h-4 w-4 text-primary" />
+                  <span>kg CO2</span>
+                </div>
+                <p className="text-lg font-bold">4.2</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div>
+          {firstTruck && (
+            <Card className="mb-4 border-primary/50 bg-[#1e4420] text-primary-foreground shadow-lg">
+              <CardContent className="flex items-center gap-4 p-3">
+                <div className="rounded-full bg-primary p-2">
+                  <Truck className="h-6 w-6" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs font-semibold uppercase">
+                    Next Pickup
+                  </p>
+                  <p className="font-bold">5km away &bull; 15m</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="rounded-full bg-black/20 px-4 text-xs font-bold hover:bg-black/40"
+                >
+                  TRACK
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              size="lg"
+              className="h-14 text-base"
+              onClick={() => setActiveView('scanner')}
+            >
+              <ScanLine className="mr-2 h-6 w-6" />
+              Scan Trash
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="h-14 bg-card/60 text-base text-foreground backdrop-blur-sm hover:bg-card/80"
+              onClick={() => setActiveView('reports')}
+            >
+              <MessageCircleWarning className="mr-2 h-6 w-6" />
+              Report Issue
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute right-4 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-2">
         <Button
-          size="lg"
-          className="h-16 text-base"
-          onClick={() => setActiveView('scanner')}
+          size="icon"
+          variant="secondary"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
         >
-          <ScanLine className="mr-2 h-6 w-6" />
-          Scan Trash
+          <Navigation className="h-6 w-6" />
         </Button>
         <Button
+          size="icon"
           variant="secondary"
-          size="lg"
-          className="h-16 text-base"
-          onClick={() => setActiveView('reports')}
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
         >
-          <MessageCircleWarning className="mr-2 h-6 w-6" />
-          Report Issue
+          <Layers className="h-6 w-6" />
         </Button>
       </div>
     </div>
