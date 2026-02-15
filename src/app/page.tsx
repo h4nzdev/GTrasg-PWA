@@ -78,7 +78,10 @@ export default function LoginPage() {
           description: 'Welcome back! Redirecting to your dashboard.',
         });
         router.push('/dashboard');
-      } else if (values.username === 'operator' && values.password === 'operator123') {
+      } else if (
+        (values.username === 'operator' && values.password === 'operator123') ||
+        (values.username === 'xherdone' && values.password === 'Xherdone@123')
+      ) {
         toast({
           title: 'Login Successful',
           description: 'Welcome, operator! Redirecting to your route dashboard.',
