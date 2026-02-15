@@ -23,7 +23,7 @@ export function AppLayout({
 }: AppLayoutProps) {
   const isMobile = useIsMobile();
 
-  if (activeView === 'scanner' || activeView === 'report-form' || activeView === 'profile' || activeView === 'leaderboard') {
+  if (activeView === 'scanner' || activeView === 'report-form' || activeView === 'profile') {
     return children(activeView, setActiveView);
   }
 
