@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import {
   Navigation,
   VolumeX,
@@ -16,48 +15,49 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function DashboardView() {
-  const mapImage = PlaceHolderImages.find((img) => img.id === 'map');
-
   return (
-    <div className="relative h-screen w-full bg-background text-foreground">
-      {/* Map Background */}
-      {mapImage && (
-        <Image
-          src={mapImage.imageUrl}
-          alt="Map of Cebu City"
-          data-ai-hint="dark map"
-          fill
-          className="object-cover opacity-30"
-        />
-      )}
+    <div className="relative h-screen w-full bg-background text-foreground overflow-hidden">
+      {/* Actual Map - OpenStreetMap Embed */}
+      <div className="absolute inset-0 z-0">
+        <iframe
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+          src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
+          className="grayscale invert opacity-50 dark:opacity-30"
+          title="Operator Route Map"
+        ></iframe>
+      </div>
 
       {/* Top UI Elements */}
-      <div className="absolute top-0 left-0 right-0 p-4 space-y-3 z-10 bg-gradient-to-b from-black/60 to-transparent">
-        <div className="flex items-start justify-between gap-3">
+      <div className="absolute top-0 left-0 right-0 p-4 space-y-3 z-10 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+        <div className="flex items-start justify-between gap-3 pointer-events-auto">
           {/* Navigation Card */}
-          <Card className="bg-card/90 border-primary/50 p-3 flex-1">
+          <Card className="bg-card/90 border-primary/50 p-3 flex-1 backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                 <Navigation className="h-6 w-6 rotate-45" />
               </div>
               <div>
                 <p className="text-3xl font-bold">450m</p>
-                <p className="text-xs text-muted-foreground uppercase">Turn right onto Colon St.</p>
+                <p className="text-xs text-muted-foreground uppercase font-bold">Turn right onto Colon St.</p>
               </div>
             </div>
           </Card>
           {/* Speed Card */}
-          <Card className="bg-card/90 border-border p-3">
+          <Card className="bg-card/90 border-border p-3 backdrop-blur-sm text-center">
              <p className="text-3xl font-bold">24</p>
-             <p className="text-xs text-muted-foreground">km/h</p>
+             <p className="text-xs text-muted-foreground font-bold">km/h</p>
           </Card>
         </div>
 
         {/* High Priority Alert */}
-        <Card className="bg-yellow-500/20 border border-yellow-400 text-yellow-300 p-3">
+        <Card className="bg-yellow-500/20 border border-yellow-400 text-yellow-300 p-3 backdrop-blur-sm pointer-events-auto">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="bg-yellow-400/20 p-2 rounded-full">
@@ -76,16 +76,16 @@ export function DashboardView() {
       </div>
 
        {/* Map Markers (Static for UI) */}
-      <div className="absolute top-[35%] left-[20%] z-10 text-xs text-center">
-         <p className="font-bold bg-black/50 px-2 py-1 rounded">NEXT: BRGY. LUZ</p>
+      <div className="absolute top-[35%] left-[20%] z-10 text-xs text-center pointer-events-none">
+         <p className="font-bold bg-black/70 text-white px-2 py-1 rounded-full shadow-lg border border-white/20">NEXT: BRGY. LUZ</p>
       </div>
 
-      <div className="absolute top-1/2 right-8 z-10 flex flex-col items-center gap-2">
+      <div className="absolute top-1/2 right-8 z-10 flex flex-col items-center gap-2 pointer-events-auto">
          <Card className="bg-destructive/90 border-destructive/50 p-3 flex items-center gap-2 shadow-lg text-destructive-foreground">
             <AlertTriangle className="h-5 w-5" />
             <p className="font-bold text-sm">HIGH VOLUME PICKUP</p>
          </Card>
-         <Button variant="secondary" size="icon" className="bg-card text-card-foreground rounded-full h-12 w-12 shadow-lg">
+         <Button variant="secondary" size="icon" className="bg-card text-card-foreground rounded-full h-12 w-12 shadow-lg border border-border">
             <MapPin className="h-6 w-6"/>
          </Button>
       </div>
@@ -96,33 +96,32 @@ export function DashboardView() {
         </div>
       </div>
 
-
       {/* Bottom Sheet */}
       <div className="absolute bottom-0 left-0 right-0 z-20 p-4">
          {/* Route Info */}
-        <Card className="bg-card/95 border-border p-3 mb-3">
+        <Card className="bg-card/95 border-border p-3 mb-3 backdrop-blur-md">
             <div className="flex justify-around items-center text-center">
                 <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-primary"/>
-                    <span className="font-semibold">14:20</span>
+                    <span className="font-bold">14:20</span>
                 </div>
                  <div className="flex items-center gap-2">
                     <CircleDot className="h-4 w-4 text-primary"/>
-                    <span className="font-semibold">12 mins</span>
+                    <span className="font-bold">12 mins</span>
                 </div>
                  <div className="flex items-center gap-2">
                     <Route className="h-4 w-4 text-primary"/>
-                    <span className="font-semibold">3.2 km</span>
+                    <span className="font-bold">3.2 km</span>
                 </div>
             </div>
         </Card>
         
         {/* Active Route Card */}
-        <Card className="bg-card/95 border-border overflow-hidden">
+        <Card className="bg-card/95 border-border overflow-hidden backdrop-blur-md shadow-2xl">
           <div className="flex justify-between items-center p-4">
             <div>
-              <Badge className="bg-primary/20 text-primary border-transparent">ROUTE ACTIVE</Badge>
-              <span className="text-xs text-muted-foreground ml-2">12 stops left</span>
+              <Badge className="bg-primary/20 text-primary border-transparent font-bold">ROUTE ACTIVE</Badge>
+              <span className="text-xs text-muted-foreground ml-2 font-semibold">12 STOPS LEFT</span>
             </div>
             <Button variant="ghost" size="icon" className="h-8 w-8">
               <ChevronUp />
@@ -133,7 +132,7 @@ export function DashboardView() {
             <p className="text-sm text-muted-foreground mt-1">
               <span className="text-primary">•</span> Residential bins x14 - Expect narrow access
             </p>
-            <Button size="lg" className="w-full h-14 text-base font-bold mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Button size="lg" className="w-full h-14 text-base font-bold mt-4 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20">
               <Check className="mr-2 h-6 w-6" />
               Mark as Picked Up
             </Button>

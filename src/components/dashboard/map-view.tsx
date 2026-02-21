@@ -1,7 +1,5 @@
-
 'use client';
 
-import Image from 'next/image';
 import {
   Search,
   Navigation,
@@ -15,7 +13,6 @@ import {
   Truck,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { trucks } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import type { View } from '@/app/dashboard/page';
@@ -26,27 +23,30 @@ export function MapView({
 }: {
   setActiveView: Dispatch<SetStateAction<View>>;
 }) {
-  const mapImage = PlaceHolderImages.find((img) => img.id === 'map');
   const firstTruck = trucks[0];
 
   return (
-    <div className="relative h-full w-full">
-      {mapImage && (
-        <Image
-          src={mapImage.imageUrl}
-          alt={mapImage.description}
-          data-ai-hint={mapImage.imageHint}
-          fill
-          className="object-cover"
-          priority
-        />
-      )}
+    <div className="relative h-full w-full overflow-hidden">
+      {/* Actual Map - OpenStreetMap Embed */}
+      <div className="absolute inset-0 z-0">
+        <iframe
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight={0}
+          marginWidth={0}
+          src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
+          className="grayscale invert opacity-80 dark:opacity-60"
+          title="Cebu City Map"
+        ></iframe>
+      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80 pointer-events-none" />
 
-      <div className="relative z-10 flex h-full flex-col justify-between p-4">
+      <div className="relative z-10 flex h-full flex-col justify-between p-4 pointer-events-none">
         {/* Top Section */}
-        <div>
+        <div className="pointer-events-auto">
           <header className="flex items-start justify-between">
             <div>
               <p className="text-xs font-semibold uppercase text-primary drop-shadow-md">
@@ -60,14 +60,14 @@ export function MapView({
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-card/60 backdrop-blur-sm"
+                className="rounded-full bg-card/80 backdrop-blur-sm border border-border/50"
               >
                 <Search className="h-5 w-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-full bg-card/60 backdrop-blur-sm"
+                className="rounded-full bg-card/80 backdrop-blur-sm border border-border/50"
               >
                 <Bell className="h-5 w-5" />
               </Button>
@@ -75,7 +75,7 @@ export function MapView({
           </header>
 
           <div className="my-4 grid grid-cols-3 gap-3">
-            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
               <CardContent className="space-y-1 p-3">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <TrendingUp className="h-4 w-4 text-primary" />
@@ -84,7 +84,7 @@ export function MapView({
                 <p className="text-lg font-bold">12.4</p>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
               <CardContent className="space-y-1 p-3">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Gem className="h-4 w-4 text-yellow-400" />
@@ -93,7 +93,7 @@ export function MapView({
                 <p className="text-lg font-bold">650</p>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/60 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
               <CardContent className="space-y-1 p-3">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Leaf className="h-4 w-4 text-primary" />
@@ -106,7 +106,7 @@ export function MapView({
         </div>
 
         {/* Bottom Section */}
-        <div>
+        <div className="pointer-events-auto">
           {firstTruck && (
             <Card className="mb-4 border-primary/50 bg-[#1e4420]/90 text-primary-foreground shadow-lg backdrop-blur-md">
               <CardContent className="flex items-center gap-4 p-3">
@@ -142,7 +142,7 @@ export function MapView({
             <Button
               variant="secondary"
               size="lg"
-              className="h-14 bg-card/80 text-base text-foreground backdrop-blur-sm hover:bg-card/90 shadow-xl"
+              className="h-14 bg-card/80 text-base text-foreground backdrop-blur-sm hover:bg-card/90 shadow-xl border border-border/50"
               onClick={() => setActiveView('reports')}
             >
               <MessageCircleWarning className="mr-2 h-6 w-6" />
@@ -156,14 +156,14 @@ export function MapView({
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50"
         >
           <Navigation className="h-6 w-6" />
         </Button>
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50"
         >
           <Layers className="h-6 w-6" />
         </Button>
