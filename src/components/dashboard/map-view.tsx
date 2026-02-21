@@ -10,7 +10,7 @@ import {
   TrendingUp,
   Gem,
   Leaf,
-  Truck,
+  Truck as TruckIcon,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { trucks } from '@/lib/data';
@@ -19,6 +19,12 @@ import type { View } from '@/app/dashboard/page';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function MapView({
   setActiveView,
@@ -38,6 +44,13 @@ export function MapView({
     window.addEventListener('storage', updateTheme);
     return () => window.removeEventListener('storage', updateTheme);
   }, []);
+
+  // Simplified markers for the prototype positioned over Cebu City area
+  const truckMarkers = [
+    { id: 'TR-001', top: '40%', left: '45%', name: 'North-1' },
+    { id: 'TR-002', top: '60%', left: '35%', name: 'South-2' },
+    { id: 'TR-003', top: '35%', left: '60%', name: 'Central-3' },
+  ];
 
   return (
     <div className="relative h-full w-full overflow-hidden">
@@ -59,7 +72,34 @@ export function MapView({
         ></iframe>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60 pointer-events-none" />
+      {/* Map Markers Overlay */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <TooltipProvider>
+          {truckMarkers.map((truck) => (
+            <div
+              key={truck.id}
+              className="absolute transition-all duration-1000 ease-in-out pointer-events-auto"
+              style={{ top: truck.top, left: truck.left }}
+            >
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="relative cursor-pointer group">
+                    <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
+                    <div className="relative bg-primary text-primary-foreground p-2 rounded-full shadow-lg border-2 border-background transform transition-transform group-hover:scale-110">
+                      <TruckIcon className="h-4 w-4" />
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p className="text-xs font-bold">{truck.name} - Active</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          ))}
+        </TooltipProvider>
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/40 pointer-events-none" />
 
       <div className="relative z-10 flex h-full flex-col justify-between p-4 pointer-events-none">
         {/* Top Section */}
@@ -128,7 +168,7 @@ export function MapView({
             <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md">
               <CardContent className="flex items-center gap-4 p-3">
                 <div className="rounded-full bg-background/20 p-2">
-                  <Truck className="h-6 w-6" />
+                  <TruckIcon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
                   <p className="text-xs font-semibold uppercase opacity-80">
@@ -173,14 +213,14 @@ export function MapView({
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50 pointer-events-auto"
         >
           <Navigation className="h-6 w-6" />
         </Button>
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md border border-border/50 pointer-events-auto"
         >
           <Layers className="h-6 w-6" />
         </Button>

@@ -11,12 +11,19 @@ import {
   Route,
   AlertTriangle,
   Siren,
+  Truck as TruckIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function DashboardView() {
   const [mapTheme, setMapTheme] = useState('standard');
@@ -31,6 +38,11 @@ export function DashboardView() {
     window.addEventListener('storage', updateTheme);
     return () => window.removeEventListener('storage', updateTheme);
   }, []);
+
+  const otherTrucks = [
+    { id: 'TR-002', top: '45%', left: '55%', name: 'Central-3' },
+    { id: 'TR-003', top: '55%', left: '42%', name: 'South-2' },
+  ];
 
   return (
     <div className="relative h-screen w-full bg-background text-foreground overflow-hidden">
@@ -50,6 +62,50 @@ export function DashboardView() {
           )}
           title="Operator Route Map"
         ></iframe>
+      </div>
+
+      {/* Map Markers Overlay */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        <TooltipProvider>
+          {/* Current Operator Truck */}
+          <div className="absolute top-[48%] left-[48%] z-10 transition-all duration-500 pointer-events-auto">
+             <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="relative group cursor-crosshair">
+                    <div className="absolute -inset-4 bg-primary/30 rounded-full animate-pulse" />
+                    <div className="relative bg-primary text-primary-foreground p-3 rounded-full shadow-2xl border-4 border-background transform scale-125">
+                      <Navigation className="h-5 w-5 rotate-45" />
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs font-bold">Your Location (TRK-8829-CEB)</p>
+                </TooltipContent>
+             </Tooltip>
+          </div>
+
+          {/* Other Trucks */}
+          {otherTrucks.map((truck) => (
+            <div
+              key={truck.id}
+              className="absolute transition-all duration-1000 ease-in-out pointer-events-auto"
+              style={{ top: truck.top, left: truck.left }}
+            >
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="relative cursor-pointer group">
+                    <div className="relative bg-muted text-muted-foreground p-2 rounded-full shadow-lg border-2 border-background opacity-80 group-hover:opacity-100 transition-opacity">
+                      <TruckIcon className="h-4 w-4" />
+                    </div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p className="text-xs font-bold">{truck.name} - Fleet Member</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          ))}
+        </TooltipProvider>
       </div>
 
       {/* Top UI Elements */}
