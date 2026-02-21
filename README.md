@@ -1,3 +1,4 @@
+
 # GTrash: Smart Waste Tracker
 
 GTrash is a smart-city application designed to improve waste management in Cebu City by connecting residents with garbage collection services through real-time technology and artificial intelligence.
