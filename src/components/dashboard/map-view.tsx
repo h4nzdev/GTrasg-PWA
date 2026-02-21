@@ -22,8 +22,10 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
+  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  Tooltip,
 } from "@/components/ui/tooltip";
 import type { Truck } from '@/lib/types';
 
@@ -82,26 +84,31 @@ export function MapView({
               className="absolute transition-all duration-1000 ease-in-out pointer-events-auto"
               style={{ top: truck.top, left: truck.left }}
             >
-              <TooltipTrigger asChild>
-                <div 
-                  className="relative cursor-pointer group"
-                  onClick={() => setSelectedTruck({
-                    id: truck.id,
-                    name: truck.name,
-                    status: truck.status as any,
-                    eta: truck.eta,
-                    location: { lat: 0, lng: 0 }
-                  })}
-                >
-                  <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
-                  <div className={cn(
-                    "relative bg-primary text-primary-foreground p-2 rounded-full shadow-lg border-2 border-background transform transition-transform group-hover:scale-110",
-                    selectedTruck?.id === truck.id && "ring-4 ring-primary ring-offset-2"
-                  )}>
-                    <TruckIcon className="h-4 w-4" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div 
+                    className="relative cursor-pointer group"
+                    onClick={() => setSelectedTruck({
+                      id: truck.id,
+                      name: truck.name,
+                      status: truck.status as any,
+                      eta: truck.eta,
+                      location: { lat: 0, lng: 0 }
+                    })}
+                  >
+                    <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
+                    <div className={cn(
+                      "relative bg-primary text-primary-foreground p-2 rounded-full shadow-lg border-2 border-background transform transition-transform group-hover:scale-110",
+                      selectedTruck?.id === truck.id && "ring-4 ring-primary ring-offset-2"
+                    )}>
+                      <TruckIcon className="h-4 w-4" />
+                    </div>
                   </div>
-                </div>
-              </TooltipTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-xs font-bold">{truck.name} ({truck.eta})</p>
+                </TooltipContent>
+              </Tooltip>
             </div>
           ))}
         </TooltipProvider>
