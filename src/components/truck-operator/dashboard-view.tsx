@@ -15,8 +15,23 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export function DashboardView() {
+  const [mapTheme, setMapTheme] = useState('standard');
+
+  useEffect(() => {
+    const updateTheme = () => {
+      const theme = localStorage.getItem('map-theme') || 'standard';
+      setMapTheme(theme);
+    };
+
+    updateTheme();
+    window.addEventListener('storage', updateTheme);
+    return () => window.removeEventListener('storage', updateTheme);
+  }, []);
+
   return (
     <div className="relative h-screen w-full bg-background text-foreground overflow-hidden">
       {/* Actual Map - OpenStreetMap Embed */}
@@ -29,7 +44,10 @@ export function DashboardView() {
           marginHeight={0}
           marginWidth={0}
           src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
-          className="opacity-100"
+          className={cn(
+            "opacity-100 transition-all duration-500",
+            mapTheme === 'gray' && "map-grayscale"
+          )}
           title="Operator Route Map"
         ></iframe>
       </div>
@@ -97,7 +115,7 @@ export function DashboardView() {
       </div>
 
       {/* Bottom Sheet */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 p-4">
+      <div className="absolute bottom-0 left-0 right-0 z-20 p-4 pointer-events-auto">
          {/* Route Info */}
         <Card className="bg-card/95 border-border p-3 mb-3 backdrop-blur-md">
             <div className="flex justify-around items-center text-center">

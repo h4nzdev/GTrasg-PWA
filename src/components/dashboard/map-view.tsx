@@ -17,6 +17,8 @@ import { trucks } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import type { View } from '@/app/dashboard/page';
 import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 export function MapView({
   setActiveView,
@@ -24,6 +26,18 @@ export function MapView({
   setActiveView: Dispatch<SetStateAction<View>>;
 }) {
   const firstTruck = trucks[0];
+  const [mapTheme, setMapTheme] = useState('standard');
+
+  useEffect(() => {
+    const updateTheme = () => {
+      const theme = localStorage.getItem('map-theme') || 'standard';
+      setMapTheme(theme);
+    };
+
+    updateTheme();
+    window.addEventListener('storage', updateTheme);
+    return () => window.removeEventListener('storage', updateTheme);
+  }, []);
 
   return (
     <div className="relative h-full w-full overflow-hidden">
@@ -37,7 +51,10 @@ export function MapView({
           marginHeight={0}
           marginWidth={0}
           src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
-          className="opacity-100"
+          className={cn(
+            "opacity-100 transition-all duration-500",
+            mapTheme === 'gray' && "map-grayscale"
+          )}
           title="Cebu City Map"
         ></iframe>
       </div>

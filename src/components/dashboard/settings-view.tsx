@@ -10,20 +10,37 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useEffect, useState } from 'react';
 
 export function SettingsView() {
   const { theme, setTheme } = useTheme();
+  const [mapTheme, setMapTheme] = useState('standard');
+
+  useEffect(() => {
+    const savedMapTheme = localStorage.getItem('map-theme') || 'standard';
+    setMapTheme(savedMapTheme);
+  }, []);
+
+  const handleMapThemeChange = (value: string) => {
+    setMapTheme(value);
+    localStorage.setItem('map-theme', value);
+    // Force a small delay then window reload or just dispatch an event
+    // For this prototype, a simple localStorage update works as MapView reads it on mount
+    // but to see immediate change we can trigger a storage event
+    window.dispatchEvent(new Event('storage'));
+  };
 
   return (
-    <div className="p-4 sm:p-6">
+    <div className="p-4 sm:p-6 space-y-6">
       <Card className="mx-auto max-w-2xl">
         <CardHeader>
-          <CardTitle>Settings</CardTitle>
+          <CardTitle>Display Settings</CardTitle>
           <CardDescription>
-            Manage your application and profile settings.
+            Manage how GTrash looks on your device.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-6">
           <div className="flex items-center justify-between space-x-2 rounded-lg border p-4">
             <Label htmlFor="dark-mode" className="flex flex-col space-y-1">
               <span>Dark Mode</span>
@@ -37,6 +54,44 @@ export function SettingsView() {
               onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
               aria-label="Toggle dark mode"
             />
+          </div>
+
+          <div className="space-y-3 rounded-lg border p-4">
+            <Label className="text-base font-semibold">Map Theme</Label>
+            <RadioGroup
+              value={mapTheme}
+              onValueChange={handleMapThemeChange}
+              className="grid grid-cols-2 gap-4 pt-2"
+            >
+              <div>
+                <RadioGroupItem
+                  value="standard"
+                  id="standard"
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor="standard"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                >
+                  <div className="mb-2 h-12 w-full rounded bg-blue-100 flex items-center justify-center text-[10px] text-blue-800">Standard</div>
+                  <span className="text-sm font-medium">Standard</span>
+                </Label>
+              </div>
+              <div>
+                <RadioGroupItem
+                  value="gray"
+                  id="gray"
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor="gray"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                >
+                  <div className="mb-2 h-12 w-full rounded bg-gray-200 flex items-center justify-center text-[10px] text-gray-600">Grayscale</div>
+                  <span className="text-sm font-medium">Muted Gray</span>
+                </Label>
+              </div>
+            </RadioGroup>
           </div>
         </CardContent>
       </Card>
