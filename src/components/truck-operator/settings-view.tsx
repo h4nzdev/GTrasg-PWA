@@ -68,9 +68,11 @@ export function SettingsView() {
                 />
                 <Label
                   htmlFor="op-standard"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
                 >
-                  <div className="mb-2 h-12 w-full rounded bg-blue-100/20 flex items-center justify-center text-[10px] text-blue-400">Standard</div>
+                  <div className="mb-2 h-16 w-full rounded border border-border bg-white flex items-center justify-center text-[10px] text-blue-600 font-bold">
+                    STANDARD
+                  </div>
                   <span className="text-sm font-medium">Standard</span>
                 </Label>
               </div>
@@ -82,9 +84,11 @@ export function SettingsView() {
                 />
                 <Label
                   htmlFor="op-gray"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
                 >
-                  <div className="mb-2 h-12 w-full rounded bg-gray-200/20 flex items-center justify-center text-[10px] text-gray-400">Grayscale</div>
+                  <div className="mb-2 h-16 w-full rounded border border-border bg-gray-400 flex items-center justify-center text-[10px] text-white font-bold shadow-inner">
+                    GRAYSCALE
+                  </div>
                   <span className="text-sm font-medium">Muted Gray</span>
                 </Label>
               </div>

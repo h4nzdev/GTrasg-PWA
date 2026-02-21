@@ -25,9 +25,6 @@ export function SettingsView() {
   const handleMapThemeChange = (value: string) => {
     setMapTheme(value);
     localStorage.setItem('map-theme', value);
-    // Force a small delay then window reload or just dispatch an event
-    // For this prototype, a simple localStorage update works as MapView reads it on mount
-    // but to see immediate change we can trigger a storage event
     window.dispatchEvent(new Event('storage'));
   };
 
@@ -71,9 +68,11 @@ export function SettingsView() {
                 />
                 <Label
                   htmlFor="standard"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
                 >
-                  <div className="mb-2 h-12 w-full rounded bg-blue-100 flex items-center justify-center text-[10px] text-blue-800">Standard</div>
+                  <div className="mb-2 h-16 w-full rounded border border-border bg-white flex items-center justify-center text-[10px] text-blue-600 font-bold">
+                    STANDARD
+                  </div>
                   <span className="text-sm font-medium">Standard</span>
                 </Label>
               </div>
@@ -85,9 +84,11 @@ export function SettingsView() {
                 />
                 <Label
                   htmlFor="gray"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer transition-all"
                 >
-                  <div className="mb-2 h-12 w-full rounded bg-gray-200 flex items-center justify-center text-[10px] text-gray-600">Grayscale</div>
+                  <div className="mb-2 h-16 w-full rounded border border-border bg-gray-400 flex items-center justify-center text-[10px] text-white font-bold shadow-inner">
+                    GRAYSCALE
+                  </div>
                   <span className="text-sm font-medium">Muted Gray</span>
                 </Label>
               </div>
