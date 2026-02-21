@@ -113,21 +113,21 @@ export default function LoginPage() {
                 control={form.control}
                 name="username"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-gray-400 text-xs">
-                      Email or Mobile Number
-                    </FormLabel>
+                  <FormItem className="space-y-0">
                     <FormControl>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                         <Input
-                          placeholder="Enter your email or number"
-                          className="bg-[#2A312E] border-gray-600 pl-10 text-white placeholder:text-gray-500"
+                          placeholder=" "
+                          className="peer bg-[#2A312E] border-gray-600 pl-10 pt-6 pb-2 h-14 text-white placeholder:text-transparent focus:ring-[#34D399] focus:border-[#34D399] transition-all"
                           {...field}
                         />
+                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-4 peer-focus:text-xs peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-xs pointer-events-none">
+                          Email or Mobile Number
+                        </FormLabel>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="mt-1" />
                   </FormItem>
                 )}
               />
@@ -136,11 +136,8 @@ export default function LoginPage() {
                 control={form.control}
                 name="password"
                 render={({ field }) => (
-                  <FormItem>
-                    <div className="flex justify-between items-center">
-                      <FormLabel className="text-gray-400 text-xs">
-                        Password
-                      </FormLabel>
+                  <FormItem className="space-y-0">
+                    <div className="flex justify-end mb-1">
                       <Link
                         href="#"
                         className="text-xs text-[#34D399] hover:underline"
@@ -150,13 +147,16 @@ export default function LoginPage() {
                     </div>
                     <FormControl>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
                         <Input
                           type={showPassword ? 'text' : 'password'}
-                          placeholder="••••••••"
-                          className="bg-[#2A312E] border-gray-600 pl-10 pr-10 text-white placeholder:text-gray-500"
+                          placeholder=" "
+                          className="peer bg-[#2A312E] border-gray-600 pl-10 pr-10 pt-6 pb-2 h-14 text-white placeholder:text-transparent focus:ring-[#34D399] focus:border-[#34D399] transition-all"
                           {...field}
                         />
+                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-4 peer-focus:text-xs peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-xs pointer-events-none">
+                          Password
+                        </FormLabel>
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
@@ -170,7 +170,7 @@ export default function LoginPage() {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="mt-1" />
                   </FormItem>
                 )}
               />
