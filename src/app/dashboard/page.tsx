@@ -9,6 +9,7 @@ import { SettingsView } from '@/components/dashboard/settings-view';
 import { ReportFormView } from '@/components/dashboard/report-form-view';
 import { LeaderboardView } from '@/components/dashboard/leaderboard-view';
 import { ReportProgressView } from '@/components/dashboard/report-progress-view';
+import { HistoryView } from '@/components/dashboard/history-view';
 import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import type { Report } from '@/lib/types';
@@ -21,7 +22,8 @@ export type View =
   | 'settings'
   | 'report-form'
   | 'leaderboard'
-  | 'report-progress';
+  | 'report-progress'
+  | 'history';
 
 const viewTitles: Record<View, string> = {
   dashboard: 'Truck Tracker',
@@ -32,6 +34,7 @@ const viewTitles: Record<View, string> = {
   'report-form': 'Community Report',
   leaderboard: 'Leaderboard',
   'report-progress': 'Report Progress',
+  history: 'Disposal History',
 };
 
 export default function DashboardPage() {
@@ -59,6 +62,7 @@ export default function DashboardPage() {
           {activeView === 'report-progress' && (
             <ReportProgressView report={selectedReport} setActiveView={setActiveView} />
           )}
+          {activeView === 'history' && <HistoryView />}
         </>
       )}
     </AppLayout>

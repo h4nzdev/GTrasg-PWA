@@ -6,7 +6,7 @@ import type { ClassifyWasteItemOutput } from '@/ai/flows/ai-waste-segregation-sc
 import { classifyWasteItem } from '@/ai/flows/ai-waste-segregation-scanner';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 
@@ -166,7 +166,11 @@ export function ScannerView({ setActiveView }: { setActiveView: Dispatch<SetStat
             <Button size="icon" className="w-16 h-16 rounded-full bg-green-500 hover:bg-green-600 ring-4 ring-black/30" onClick={handleScan} disabled={isPending || hasCameraPermission !== true}>
                 <Camera className="h-8 w-8" />
             </Button>
-            <Button variant="ghost" className="flex flex-col h-auto text-gray-300 hover:text-white">
+            <Button 
+              variant="ghost" 
+              className="flex flex-col h-auto text-gray-300 hover:text-white"
+              onClick={() => setActiveView('history')}
+            >
                 <History className="h-6 w-6" />
                 <span className="text-xs mt-1">HISTORY</span>
             </Button>

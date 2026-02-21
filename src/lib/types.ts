@@ -44,3 +44,12 @@ export type Task = {
   image: ImagePlaceholder;
   status?: 'CRITICAL';
 };
+
+export type WasteEntry = {
+  id: string;
+  category: 'biodegradable' | 'recyclable' | 'residual';
+  itemName: string;
+  disposedAt: string;
+  pointsEarned: number;
+  imageUrl?: string;
+};

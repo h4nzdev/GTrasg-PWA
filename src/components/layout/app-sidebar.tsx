@@ -12,6 +12,7 @@ import {
   Settings,
   User,
   Trophy,
+  History,
 } from 'lucide-react';
 
 import type { View } from '@/app/dashboard/page';
@@ -74,6 +75,16 @@ export function AppSidebar({ activeView, setActiveView }: AppSidebarProps) {
             >
               <ScanLine />
               <span>AI Scanner</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={() => setActiveView('history')}
+              isActive={activeView === 'history'}
+              tooltip="History"
+            >
+              <History />
+              <span>Disposal History</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>

@@ -1,4 +1,4 @@
-import type { Report, LeaderboardUser, Truck, Task } from './types';
+import type { Report, LeaderboardUser, Truck, Task, WasteEntry } from './types';
 import { PlaceHolderImages } from './placeholder-images';
 
 function getImage(id: string) {
@@ -152,5 +152,43 @@ export const leaderboard: LeaderboardUser[] = [
     points: 1050,
     avatar: getImage('user-avatar-2'),
     location: 'Cebu City',
+  },
+];
+
+export const wasteHistory: WasteEntry[] = [
+  {
+    id: 'WST-001',
+    itemName: 'Plastic Water Bottle',
+    category: 'recyclable',
+    disposedAt: 'Today, 10:30 AM',
+    pointsEarned: 15,
+  },
+  {
+    id: 'WST-002',
+    itemName: 'Banana Peel',
+    category: 'biodegradable',
+    disposedAt: 'Yesterday, 4:15 PM',
+    pointsEarned: 10,
+  },
+  {
+    id: 'WST-003',
+    itemName: 'Styrofoam Container',
+    category: 'residual',
+    disposedAt: 'Yesterday, 12:45 PM',
+    pointsEarned: 5,
+  },
+  {
+    id: 'WST-004',
+    itemName: 'Aluminum Soda Can',
+    category: 'recyclable',
+    disposedAt: 'Jun 18, 2024',
+    pointsEarned: 20,
+  },
+  {
+    id: 'WST-005',
+    itemName: 'Cardboard Box',
+    category: 'recyclable',
+    disposedAt: 'Jun 17, 2024',
+    pointsEarned: 25,
   },
 ];
