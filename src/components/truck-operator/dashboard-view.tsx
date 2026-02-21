@@ -12,9 +12,10 @@ import {
   AlertTriangle,
   Siren,
   Truck as TruckIcon,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -27,6 +28,7 @@ import {
 
 export function DashboardView() {
   const [mapTheme, setMapTheme] = useState('standard');
+  const [selectedFleetTruck, setSelectedFleetTruck] = useState<{ id: string, name: string } | null>(null);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -91,18 +93,17 @@ export function DashboardView() {
               className="absolute transition-all duration-1000 ease-in-out pointer-events-auto"
               style={{ top: truck.top, left: truck.left }}
             >
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="relative cursor-pointer group">
-                    <div className="relative bg-muted text-muted-foreground p-2 rounded-full shadow-lg border-2 border-background opacity-80 group-hover:opacity-100 transition-opacity">
-                      <TruckIcon className="h-4 w-4" />
-                    </div>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <p className="text-xs font-bold">{truck.name} - Fleet Member</p>
-                </TooltipContent>
-              </Tooltip>
+              <div 
+                className="relative cursor-pointer group"
+                onClick={() => setSelectedFleetTruck({ id: truck.id, name: truck.name })}
+              >
+                <div className={cn(
+                  "relative bg-muted text-muted-foreground p-2 rounded-full shadow-lg border-2 border-background opacity-80 group-hover:opacity-100 transition-opacity",
+                  selectedFleetTruck?.id === truck.id && "ring-4 ring-primary ring-offset-2 opacity-100"
+                )}>
+                  <TruckIcon className="h-4 w-4" />
+                </div>
+              </div>
             </div>
           ))}
         </TooltipProvider>
@@ -149,29 +150,39 @@ export function DashboardView() {
         </Card>
       </div>
 
-       {/* Map Markers (Static for UI) */}
-      <div className="absolute top-[35%] left-[20%] z-10 text-xs text-center pointer-events-none">
-         <p className="font-bold bg-card/80 text-foreground px-2 py-1 rounded-full shadow-lg border border-border">NEXT: BRGY. LUZ</p>
-      </div>
-
-      <div className="absolute top-1/2 right-8 z-10 flex flex-col items-center gap-2 pointer-events-auto">
-         <Card className="bg-destructive/90 border-destructive/50 p-3 flex items-center gap-2 shadow-lg text-destructive-foreground">
-            <AlertTriangle className="h-5 w-5" />
-            <p className="font-bold text-sm">HIGH VOLUME PICKUP</p>
-         </Card>
-         <Button variant="secondary" size="icon" className="bg-card text-card-foreground rounded-full h-12 w-12 shadow-lg border border-border">
-            <MapPin className="h-6 w-6"/>
-         </Button>
-      </div>
-      
-      <div className="absolute bottom-[320px] right-4 z-10">
-        <div className="bg-destructive text-destructive-foreground rounded-full h-10 w-10 flex items-center justify-center shadow-lg border-2 border-background">
-            <AlertTriangle className="h-6 w-6"/>
-        </div>
-      </div>
-
       {/* Bottom Sheet */}
       <div className="absolute bottom-0 left-0 right-0 z-20 p-4 pointer-events-auto">
+        {selectedFleetTruck && (
+          <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md animate-in slide-in-from-bottom-4 duration-300">
+            <CardContent className="flex items-center gap-4 p-3 relative">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-black/40 text-white hover:bg-black/60"
+                onClick={() => setSelectedFleetTruck(null)}
+              >
+                <X className="h-3 w-3" />
+              </Button>
+              <div className="rounded-full bg-background/20 p-2">
+                <TruckIcon className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase opacity-80">
+                  Fleet Member: {selectedFleetTruck.name}
+                </p>
+                <p className="font-bold">Active in Sector 2 &bull; 0.8km away</p>
+              </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="rounded-full bg-black/20 px-4 text-xs font-bold hover:bg-black/40"
+              >
+                TRACK
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
          {/* Route Info */}
         <Card className="bg-card/95 border-border p-3 mb-3 backdrop-blur-md">
             <div className="flex justify-around items-center text-center">

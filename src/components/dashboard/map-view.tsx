@@ -11,6 +11,7 @@ import {
   Gem,
   Leaf,
   Truck as TruckIcon,
+  X,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { trucks } from '@/lib/data';
@@ -21,18 +22,18 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
-  TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import type { Truck } from '@/lib/types';
 
 export function MapView({
   setActiveView,
 }: {
   setActiveView: Dispatch<SetStateAction<View>>;
 }) {
-  const firstTruck = trucks[0];
   const [mapTheme, setMapTheme] = useState('standard');
+  const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -47,9 +48,9 @@ export function MapView({
 
   // Simplified markers for the prototype positioned over Cebu City area
   const truckMarkers = [
-    { id: 'TR-001', top: '40%', left: '45%', name: 'North-1' },
-    { id: 'TR-002', top: '60%', left: '35%', name: 'South-2' },
-    { id: 'TR-003', top: '35%', left: '60%', name: 'Central-3' },
+    { id: 'TR-001', top: '40%', left: '45%', name: 'North-1', status: 'On Route', eta: '5 min' },
+    { id: 'TR-002', top: '60%', left: '35%', name: 'South-2', status: 'On Route', eta: '12 min' },
+    { id: 'TR-003', top: '35%', left: '60%', name: 'Central-3', status: 'Idle', eta: '25 min' },
   ];
 
   return (
@@ -81,19 +82,26 @@ export function MapView({
               className="absolute transition-all duration-1000 ease-in-out pointer-events-auto"
               style={{ top: truck.top, left: truck.left }}
             >
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="relative cursor-pointer group">
-                    <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
-                    <div className="relative bg-primary text-primary-foreground p-2 rounded-full shadow-lg border-2 border-background transform transition-transform group-hover:scale-110">
-                      <TruckIcon className="h-4 w-4" />
-                    </div>
+              <TooltipTrigger asChild>
+                <div 
+                  className="relative cursor-pointer group"
+                  onClick={() => setSelectedTruck({
+                    id: truck.id,
+                    name: truck.name,
+                    status: truck.status as any,
+                    eta: truck.eta,
+                    location: { lat: 0, lng: 0 }
+                  })}
+                >
+                  <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
+                  <div className={cn(
+                    "relative bg-primary text-primary-foreground p-2 rounded-full shadow-lg border-2 border-background transform transition-transform group-hover:scale-110",
+                    selectedTruck?.id === truck.id && "ring-4 ring-primary ring-offset-2"
+                  )}>
+                    <TruckIcon className="h-4 w-4" />
                   </div>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  <p className="text-xs font-bold">{truck.name} - Active</p>
-                </TooltipContent>
-              </Tooltip>
+                </div>
+              </TooltipTrigger>
             </div>
           ))}
         </TooltipProvider>
@@ -164,17 +172,25 @@ export function MapView({
 
         {/* Bottom Section */}
         <div className="pointer-events-auto">
-          {firstTruck && (
-            <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md">
-              <CardContent className="flex items-center gap-4 p-3">
+          {selectedTruck && (
+            <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md animate-in slide-in-from-bottom-4 duration-300">
+              <CardContent className="flex items-center gap-4 p-3 relative">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-black/40 text-white hover:bg-black/60"
+                  onClick={() => setSelectedTruck(null)}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
                 <div className="rounded-full bg-background/20 p-2">
                   <TruckIcon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
                   <p className="text-xs font-semibold uppercase opacity-80">
-                    Next Pickup
+                    Truck: {selectedTruck.name}
                   </p>
-                  <p className="font-bold">5km away &bull; 15m</p>
+                  <p className="font-bold">{selectedTruck.status === 'Idle' ? 'Stationary' : 'Heading to your zone'} &bull; {selectedTruck.eta}</p>
                 </div>
                 <Button
                   variant="ghost"
