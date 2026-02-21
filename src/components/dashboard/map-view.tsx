@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -17,7 +18,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { trucks } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import type { View } from '@/app/page';
+import type { View } from '@/app/dashboard/page';
 import type { Dispatch, SetStateAction } from 'react';
 
 export function MapView({
@@ -37,20 +38,21 @@ export function MapView({
           data-ai-hint={mapImage.imageHint}
           fill
           className="object-cover"
+          priority
         />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
 
       <div className="relative z-10 flex h-full flex-col justify-between p-4">
         {/* Top Section */}
         <div>
           <header className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-primary">
+              <p className="text-xs font-semibold uppercase text-primary drop-shadow-md">
                 CEBU CITY
               </p>
-              <h1 className="text-2xl font-bold text-foreground">
+              <h1 className="text-2xl font-bold text-foreground drop-shadow-md">
                 Eco Dashboard
               </h1>
             </div>
@@ -106,13 +108,13 @@ export function MapView({
         {/* Bottom Section */}
         <div>
           {firstTruck && (
-            <Card className="mb-4 border-primary/50 bg-[#1e4420] text-primary-foreground shadow-lg">
+            <Card className="mb-4 border-primary/50 bg-[#1e4420]/90 text-primary-foreground shadow-lg backdrop-blur-md">
               <CardContent className="flex items-center gap-4 p-3">
                 <div className="rounded-full bg-primary p-2">
                   <Truck className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs font-semibold uppercase">
+                  <p className="text-xs font-semibold uppercase opacity-80">
                     Next Pickup
                   </p>
                   <p className="font-bold">5km away &bull; 15m</p>
@@ -131,7 +133,7 @@ export function MapView({
           <div className="grid grid-cols-2 gap-4">
             <Button
               size="lg"
-              className="h-14 text-base"
+              className="h-14 text-base shadow-xl"
               onClick={() => setActiveView('scanner')}
             >
               <ScanLine className="mr-2 h-6 w-6" />
@@ -140,7 +142,7 @@ export function MapView({
             <Button
               variant="secondary"
               size="lg"
-              className="h-14 bg-card/60 text-base text-foreground backdrop-blur-sm hover:bg-card/80"
+              className="h-14 bg-card/80 text-base text-foreground backdrop-blur-sm hover:bg-card/90 shadow-xl"
               onClick={() => setActiveView('reports')}
             >
               <MessageCircleWarning className="mr-2 h-6 w-6" />
@@ -154,14 +156,14 @@ export function MapView({
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md"
         >
           <Navigation className="h-6 w-6" />
         </Button>
         <Button
           size="icon"
           variant="secondary"
-          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm"
+          className="h-12 w-12 rounded-lg bg-background/80 backdrop-blur-sm shadow-md"
         >
           <Layers className="h-6 w-6" />
         </Button>
