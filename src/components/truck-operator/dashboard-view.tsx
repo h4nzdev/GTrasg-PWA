@@ -29,13 +29,13 @@ export function DashboardView() {
           marginHeight={0}
           marginWidth={0}
           src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
-          className="grayscale invert opacity-50 dark:opacity-30"
+          className="opacity-100"
           title="Operator Route Map"
         ></iframe>
       </div>
 
       {/* Top UI Elements */}
-      <div className="absolute top-0 left-0 right-0 p-4 space-y-3 z-10 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 p-4 space-y-3 z-10 bg-gradient-to-b from-background/40 to-transparent pointer-events-none">
         <div className="flex items-start justify-between gap-3 pointer-events-auto">
           {/* Navigation Card */}
           <Card className="bg-card/90 border-primary/50 p-3 flex-1 backdrop-blur-sm">
@@ -57,18 +57,18 @@ export function DashboardView() {
         </div>
 
         {/* High Priority Alert */}
-        <Card className="bg-yellow-500/20 border border-yellow-400 text-yellow-300 p-3 backdrop-blur-sm pointer-events-auto">
+        <Card className="bg-yellow-500/20 border border-yellow-400 text-yellow-700 dark:text-yellow-300 p-3 backdrop-blur-sm pointer-events-auto">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="bg-yellow-400/20 p-2 rounded-full">
-                         <Siren className="h-5 w-5 text-yellow-300" />
+                         <Siren className="h-5 w-5 text-yellow-600 dark:text-yellow-300" />
                     </div>
                     <div>
                         <p className="text-xs font-bold uppercase">High Priority Alert</p>
                         <p className="font-semibold text-foreground">Illegal Dumping: Archbishop Reyes Ave.</p>
                     </div>
                 </div>
-                <Button variant="ghost" size="icon" className="text-yellow-300 hover:text-yellow-200 h-8 w-8">
+                <Button variant="ghost" size="icon" className="text-yellow-600 dark:text-yellow-300 hover:text-yellow-700 h-8 w-8">
                     <VolumeX className="h-5 w-5" />
                 </Button>
             </div>
@@ -77,7 +77,7 @@ export function DashboardView() {
 
        {/* Map Markers (Static for UI) */}
       <div className="absolute top-[35%] left-[20%] z-10 text-xs text-center pointer-events-none">
-         <p className="font-bold bg-black/70 text-white px-2 py-1 rounded-full shadow-lg border border-white/20">NEXT: BRGY. LUZ</p>
+         <p className="font-bold bg-card/80 text-foreground px-2 py-1 rounded-full shadow-lg border border-border">NEXT: BRGY. LUZ</p>
       </div>
 
       <div className="absolute top-1/2 right-8 z-10 flex flex-col items-center gap-2 pointer-events-auto">

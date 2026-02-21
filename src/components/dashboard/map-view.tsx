@@ -37,19 +37,19 @@ export function MapView({
           marginHeight={0}
           marginWidth={0}
           src="https://www.openstreetmap.org/export/embed.html?bbox=123.83403778076173%2C10.264102927962885%2C123.95763397216798%2C10.367295874226164&amp;layer=mapnik"
-          className="grayscale invert opacity-80 dark:opacity-60"
+          className="opacity-100"
           title="Cebu City Map"
         ></iframe>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60 pointer-events-none" />
 
       <div className="relative z-10 flex h-full flex-col justify-between p-4 pointer-events-none">
         {/* Top Section */}
         <div className="pointer-events-auto">
           <header className="flex items-start justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase text-primary drop-shadow-md">
+              <p className="text-xs font-semibold uppercase text-primary drop-shadow-sm">
                 CEBU CITY
               </p>
               <h1 className="text-2xl font-bold text-foreground drop-shadow-md">
@@ -87,7 +87,7 @@ export function MapView({
             <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
               <CardContent className="space-y-1 p-3">
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <Gem className="h-4 w-4 text-yellow-400" />
+                  <Gem className="h-4 w-4 text-yellow-500" />
                   <span>Points</span>
                 </div>
                 <p className="text-lg font-bold">650</p>
@@ -108,9 +108,9 @@ export function MapView({
         {/* Bottom Section */}
         <div className="pointer-events-auto">
           {firstTruck && (
-            <Card className="mb-4 border-primary/50 bg-[#1e4420]/90 text-primary-foreground shadow-lg backdrop-blur-md">
+            <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md">
               <CardContent className="flex items-center gap-4 p-3">
-                <div className="rounded-full bg-primary p-2">
+                <div className="rounded-full bg-background/20 p-2">
                   <Truck className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
