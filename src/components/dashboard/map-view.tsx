@@ -12,10 +12,13 @@ import {
   Leaf,
   Truck as TruckIcon,
   X,
+  Radio,
+  Timer,
+  Zap,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { trucks } from '@/lib/data';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 import type { View } from '@/app/dashboard/page';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
@@ -27,6 +30,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import type { Truck } from '@/lib/types';
+import { Progress } from '@/components/ui/progress';
 
 export function MapView({
   setActiveView,
@@ -35,6 +39,8 @@ export function MapView({
 }) {
   const [mapTheme, setMapTheme] = useState('standard');
   const [selectedTruck, setSelectedTruck] = useState<Truck | null>(null);
+  const [isTracking, setIsTracking] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const updateTheme = () => {
@@ -47,7 +53,19 @@ export function MapView({
     return () => window.removeEventListener('storage', updateTheme);
   }, []);
 
-  // Simplified markers for the prototype positioned over Cebu City area
+  const handleTrackClick = () => {
+    setIsTracking(true);
+    toast({
+      title: "Eco-Radar Online! 📡",
+      description: `Synchronizing with ${selectedTruck?.name}... Get your bins ready!`,
+    });
+  };
+
+  const handleCloseTruck = () => {
+    setSelectedTruck(null);
+    setIsTracking(false);
+  };
+
   const truckMarkers = [
     { id: 'TR-001', top: '40%', left: '45%', name: 'North-1', status: 'On Route', eta: '5 min' },
     { id: 'TR-002', top: '60%', left: '35%', name: 'South-2', status: 'On Route', eta: '12 min' },
@@ -87,13 +105,16 @@ export function MapView({
                 <TooltipTrigger asChild>
                   <div 
                     className="relative cursor-pointer group"
-                    onClick={() => setSelectedTruck({
-                      id: truck.id,
-                      name: truck.name,
-                      status: truck.status as any,
-                      eta: truck.eta,
-                      location: { lat: 0, lng: 0 }
-                    })}
+                    onClick={() => {
+                      setSelectedTruck({
+                        id: truck.id,
+                        name: truck.name,
+                        status: truck.status as any,
+                        eta: truck.eta,
+                        location: { lat: 0, lng: 0 }
+                      });
+                      setIsTracking(false);
+                    }}
                   >
                     <div className="absolute -inset-2 bg-primary/20 rounded-full animate-ping group-hover:bg-primary/40" />
                     <div className={cn(
@@ -179,32 +200,79 @@ export function MapView({
         {/* Bottom Section */}
         <div className="pointer-events-auto">
           {selectedTruck && (
-            <Card className="mb-4 border-primary/50 bg-primary/90 text-primary-foreground shadow-lg backdrop-blur-md animate-in slide-in-from-bottom-4 duration-300">
-              <CardContent className="flex items-center gap-4 p-3 relative">
+            <Card className={cn(
+              "mb-4 border-primary/50 shadow-lg backdrop-blur-md animate-in slide-in-from-bottom-4 duration-300 overflow-hidden",
+              isTracking ? "bg-black/90 text-white" : "bg-primary/90 text-primary-foreground"
+            )}>
+              <CardContent className="p-4 relative">
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-black/40 text-white hover:bg-black/60"
-                  onClick={() => setSelectedTruck(null)}
+                  className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/10 text-white hover:bg-white/20"
+                  onClick={handleCloseTruck}
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-4 w-4" />
                 </Button>
-                <div className="rounded-full bg-background/20 p-2">
-                  <TruckIcon className="h-6 w-6" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-xs font-semibold uppercase opacity-80">
-                    Truck: {selectedTruck.name}
-                  </p>
-                  <p className="font-bold">{selectedTruck.status === 'Idle' ? 'Stationary' : 'Heading to your zone'} &bull; {selectedTruck.eta}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="rounded-full bg-black/20 px-4 text-xs font-bold hover:bg-black/40"
-                >
-                  TRACK
-                </Button>
+
+                {isTracking ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="absolute -inset-1 bg-green-500 rounded-full animate-pulse blur-sm" />
+                        <Radio className="h-6 w-6 text-green-400 relative" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold tracking-tight">Mission: Clean Cebu 🌿</h3>
+                        <p className="text-xs text-green-400 font-mono animate-pulse uppercase">Live Feed Enabled &bull; {selectedTruck.name}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white/5 p-3 rounded-lg border border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
+                          <Timer className="h-3 w-3" />
+                          <span>ARRIVAL</span>
+                        </div>
+                        <p className="text-xl font-bold">{selectedTruck.eta}</p>
+                      </div>
+                      <div className="bg-white/5 p-3 rounded-lg border border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
+                          <Zap className="h-3 w-3" />
+                          <span>ENERGY</span>
+                        </div>
+                        <p className="text-xl font-bold">OPTIMAL</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-[10px] text-gray-500 font-bold">
+                        <span>INTERCEPT PROGRESS</span>
+                        <span>85% SYNCED</span>
+                      </div>
+                      <Progress value={85} className="h-1 bg-white/10 [&>div]:bg-green-500" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-full bg-background/20 p-2">
+                      <TruckIcon className="h-6 w-6" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs font-semibold uppercase opacity-80">
+                        Eco-Truck: {selectedTruck.name}
+                      </p>
+                      <p className="font-bold">{selectedTruck.status === 'Idle' ? 'Refueling' : 'Intercepting your zone'} &bull; {selectedTruck.eta}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="rounded-full bg-black/20 px-4 text-xs font-bold hover:bg-black/40"
+                      onClick={handleTrackClick}
+                    >
+                      TRACK MISSION
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
           )}
