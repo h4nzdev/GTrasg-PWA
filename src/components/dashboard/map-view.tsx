@@ -25,7 +25,6 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  Tooltip,
 } from "@/components/ui/tooltip";
 import type { Truck } from '@/lib/types';
 
