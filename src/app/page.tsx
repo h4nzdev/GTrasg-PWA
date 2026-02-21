@@ -122,7 +122,7 @@ export default function LoginPage() {
                           className="peer bg-[#2A312E] border-gray-600 pl-10 pt-6 pb-2 h-14 text-white placeholder:text-transparent focus:ring-[#34D399] focus:border-[#34D399] transition-all"
                           {...field}
                         />
-                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-4 peer-focus:text-xs peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-xs pointer-events-none">
+                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-3 peer-focus:text-[10px] peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:text-[10px] pointer-events-none">
                           Email or Mobile Number
                         </FormLabel>
                       </div>
@@ -154,7 +154,7 @@ export default function LoginPage() {
                           className="peer bg-[#2A312E] border-gray-600 pl-10 pr-10 pt-6 pb-2 h-14 text-white placeholder:text-transparent focus:ring-[#34D399] focus:border-[#34D399] transition-all"
                           {...field}
                         />
-                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-4 peer-focus:text-xs peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-xs pointer-events-none">
+                        <FormLabel className="absolute left-10 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-all duration-200 ease-in-out peer-focus:top-3 peer-focus:text-[10px] peer-focus:text-[#34D399] peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:text-[10px] pointer-events-none">
                           Password
                         </FormLabel>
                         <button
