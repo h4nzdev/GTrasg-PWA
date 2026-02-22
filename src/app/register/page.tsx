@@ -70,7 +70,7 @@ export default function RegisterPage() {
             <Progress value={50} className="mt-2 h-1 bg-transparent [&>div]:bg-[#34D399]" />
           </div>
           <div className="text-left mb-8">
-            <h2 className="text-3xl font-bold">Join the Eco-Warriors</h2>
+            <h2 className="text-3xl font-bold">Join the G-Trash</h2>
             <p className="text-gray-400 mt-1">
               Improve Cebu's waste management. Track collection trucks in real-time.
             </p>
